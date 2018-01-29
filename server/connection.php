@@ -20,10 +20,6 @@ function dbConnection() {
 
 	echo '<h3>Connection completed!</h3>';
 
-	// DEBUGG
-
-	print_r(hash_algos());
-
 }
 
 ?>
