@@ -1,24 +1,28 @@
 <?php
 
 /**
- * Devuelve true o false si la conexion con la BBDD se ha realizado
+ * Devuelve 200 si se ha realizado la conexión con la base de datos
  */
 
 function dbConnection() {
 
 	$user = 'root';
-	// $pass = 'admin';
-	$pass = 'bitnami'; // -->  Conexión de clase
+	$pass = 'admin';
+	// $pass = 'bitnami'; // -->  Conexión de clase
 	$dbName = 'ulance';
-	// $host = '192.168.122.26';
-	$host = '127.0.0.1'; // -->  Conexión de clase
+	$host = '192.168.122.26';
+	// $host = '127.0.0.1'; // -->  Conexión de clase
+	$code = null;
 
-	$mysqli = mysqli_init();
+	$mysqli = new mysqli($host, $user, $pass, $dbName);
 
-	mysqli_real_connect($mysqli, $host, $user, $pass, $dbName)
-		or die('<h3>Unable to connect</h3>');
+	if ($mysqli->connect_errno) {
+		$code = 500;
+	} else {
+		$code = 200;
+	}
 
-	echo '<h3>Connection completed!</h3>';
+	return $code;
 
 }
 

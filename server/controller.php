@@ -1,5 +1,7 @@
 <?php
 
+include 'connection.php';
+
 /**
 * Controlador de la aplicación
 */
@@ -27,5 +29,13 @@ function jsonHeader($code = 200) {
 }
 
 jsonHeader();
+
+$connection = dbConnection();
+
+if ($connection == 200) {
+    print '<h3>Connection succesfully done!</h3>';
+} else {
+    print '<h3>Error: unable to connect. Contact your administrator</h3>';
+}
 
 ?>
