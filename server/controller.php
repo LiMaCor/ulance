@@ -39,3 +39,17 @@ if ($connection == 200) {
 }
 
 ?>
+
+<!--
+	DEBUGG
+-->
+
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<title>Controlador PHP</title>
+	</head>
+	<body>
+		<a href="login.php?user=lian&pass=macarena">Login</a>
+	</body>
+</html>

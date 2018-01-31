@@ -7,10 +7,10 @@ require 'connection.php';
 */
 
 	$usuario = $_GET['user'];
-	$password = $_GET['pass'];
+	$hashedPassword = hash('sha256', $_GET['pass']);
 
 	$sqlUsuario = "SELECT * FROM usuario WHERE login LIKE '" . $usuario . "'";
-	$sqlPassword = "SELECT * FROM usuario WHERE pass LIKE '" . $password . "'";
+	$sqlPassword = "SELECT * FROM usuario WHERE pass LIKE '" . $hashedPassword . "'";
 
 	$resultSet = $mysqli->query($sqlUsuario);
 
@@ -29,8 +29,9 @@ require 'connection.php';
 
 	// DEBUGG
 	
-	print $usuario;
-	print $password;
+	print $usuario . "<br>";
+	print $hashedPassword . "<br>";
+	print $resultSet->num_rows;
 
 		// if ($usuario == mysqli && $contraseña == "") {
 		// 	print '<h3>Welcome back, ' . $usuario . '</h3>';
