@@ -2,14 +2,32 @@
 <html>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 <head>
-	<title>Conexión a la BDD</title>
+	<title>Login</title>
 	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
 </head>
 <body>
-	<form action="login.php" method="post">
+	<!-- <form action="login.php" method="post">
  		<p>User: <input type="text" name="user"/></p>
  		<p>Pass: <input type="password" name="password"/></p>
  		<p><input type="submit"/></p>
-	</form>
+	</form> -->
+
+<h3>Bienvenido <span id="user"></span></h3>
+
+	<script>
+		$(document).ready(function() {
+			$.ajax({
+				type: "GET",
+				url: "http://localhost/server/connection.php",
+				dataType: "json",
+				success: function (response) {
+					$("#user").empty().append(response.json.user);
+				},
+				error: function(error) {
+					alert("Error");
+				}
+			});
+		});
+	</script>
 </body>
 </html>
