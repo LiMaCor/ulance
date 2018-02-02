@@ -1,16 +1,50 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of CuentaBancariaBean
  *
- * @author root
+ * @author PixelZer0
  */
+
 class CuentaBancariaBean {
-    //put your code here
+    
+    // VARIABLES
+    
+    private $id;
+    private $iban;
+    private $banco_id;
+    
+    // CONSTRUCTOR
+    
+    public function construct($id, $iban, $banco_id) {
+        $this->id = $id;
+        $this->iban = $iban;
+        $this->banco_id = $banco_id;
+    }
+
+    // GETTER & SETTER
+    
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getIban() {
+        return $this->iban;
+    }
+
+    public function getBanco_id() {
+        return $this->banco_id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setIban($iban) {
+        $this->iban = $iban;
+    }
+
+    public function setBanco_id($banco_id) {
+        $this->banco_id = $banco_id;
+    }
+
 }

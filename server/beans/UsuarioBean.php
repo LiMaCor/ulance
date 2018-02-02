@@ -19,7 +19,9 @@ class UsuarioBean {
     private $email;
     private $tipousuario_id;
     
-    function __construct($id, $nombre, $primerapellido, $segundoapellido, $login, $pass, $email, $tipousuario_id) {
+    // CONSTRUCTOR
+    
+    public function construct($id, $nombre, $primerapellido, $segundoapellido, $login, $pass, $email, $tipousuario_id) {
         $this->id = $id;
         $this->nombre = $nombre;
         $this->primerapellido = $primerapellido;
@@ -29,6 +31,8 @@ class UsuarioBean {
         $this->email = $email;
         $this->tipousuario_id = $tipousuario_id;
     }
+    
+    // GETTER & SETTER
     
     public function getId() {
         return $this->id;

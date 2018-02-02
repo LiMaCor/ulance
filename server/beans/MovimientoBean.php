@@ -1,16 +1,80 @@
 <?php
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * Description of MovimientoBean
  *
- * @author root
+ * @author PixelZer0
  */
+
 class MovimientoBean {
-    //put your code here
+    
+    // VARIABLES
+    
+    private $id;
+    private $concepto;
+    private $cantidad;
+    private $fecha;
+    private $categoriamovimiento_id;
+    private $cuentabancaria_id;
+    
+    // CONSTRUCTOR
+    
+    public function construct($id, $concepto, $cantidad, $fecha, $categoriamovimiento_id, $cuentabancaria_id) {
+        $this->id = $id;
+        $this->concepto = $concepto;
+        $this->cantidad = $cantidad;
+        $this->fecha = $fecha;
+        $this->categoriamovimiento_id = $categoriamovimiento_id;
+        $this->cuentabancaria_id = $cuentabancaria_id;
+    }
+    
+    // GETTER & SETTER
+
+    public function getId() {
+        return $this->id;
+    }
+
+    public function getConcepto() {
+        return $this->concepto;
+    }
+
+    public function getCantidad() {
+        return $this->cantidad;
+    }
+
+    public function getFecha() {
+        return $this->fecha;
+    }
+
+    public function getCategoriamovimiento_id() {
+        return $this->categoriamovimiento_id;
+    }
+
+    public function getCuentabancaria_id() {
+        return $this->cuentabancaria_id;
+    }
+
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    public function setConcepto($concepto) {
+        $this->concepto = $concepto;
+    }
+
+    public function setCantidad($cantidad) {
+        $this->cantidad = $cantidad;
+    }
+
+    public function setFecha($fecha) {
+        $this->fecha = $fecha;
+    }
+
+    public function setCategoriamovimiento_id($categoriamovimiento_id) {
+        $this->categoriamovimiento_id = $categoriamovimiento_id;
+    }
+
+    public function setCuentabancaria_id($cuentabancaria_id) {
+        $this->cuentabancaria_id = $cuentabancaria_id;
+    }
+
 }
