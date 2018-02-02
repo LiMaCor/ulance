@@ -19,5 +19,3 @@ require 'dbConstants.php';
 	}
 
 	return $code;
-
-?>

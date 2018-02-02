@@ -10,10 +10,9 @@ require 'connection.php';
 	$hashedPassword = hash('sha256', $_GET['pass']);
 
 	$sqlPreparedUsuario = $mysqli->prepare("SELECT * FROM usuario WHERE login LIKE ?");
-	$sqlPreparedUsuario->bind_param('s', $usuario); // $mysqli->query($sqlUsuario);
+	$sqlPreparedUsuario->bind_param('s', $usuario);
         $sqlPreparedUsuario->execute();
         $sqlPreparedUsuario->store_result();
-        // print $sqlPreparedUsuario->num_rows;
         
 	if(($sqlPreparedUsuario->num_rows) > 0) {
             
@@ -38,11 +37,3 @@ require 'connection.php';
 	
 	print $usuario . "<br>";
 	print $hashedPassword . "<br>";
-
-		// if ($usuario == mysqli && $contraseña == "") {
-		// 	print '<h3>Welcome back, ' . $usuario . '</h3>';
-		// } else {
-		// 	print '<h3>Error: acces denied</h3>';
-		// }
-
-?>

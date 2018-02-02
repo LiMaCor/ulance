@@ -8,5 +8,3 @@ define("DBUSER", "root");
 define("DBPASS", "admin");
 define("DBNAME", "ulance");
 define("DBHOST", "192.168.122.26");
-
-?>
