@@ -3,23 +3,30 @@
 require 'connection.php';
 
 /**
-* Loggea al usuario en la aplicación
+* Loggea al usuario en la aplicación utilizando consultas preparadas
 */
 
 	$usuario = $_GET['user'];
 	$hashedPassword = hash('sha256', $_GET['pass']);
 
-	$sqlUsuario = "SELECT * FROM usuario WHERE login LIKE '" . $usuario . "'";
-	$sqlPassword = "SELECT * FROM usuario WHERE pass LIKE '" . $hashedPassword . "'";
-
-	$resultSet = $mysqli->query($sqlUsuario);
-
-	if($resultSet->num_rows > 0) {
-
-		$resultSet = $mysqli->query($sqlPassword);
-
-		if ($resultSet->num_rows > 0) {
+	$sqlPreparedUsuario = $mysqli->prepare("SELECT * FROM usuario WHERE login LIKE ?");
+	$sqlPreparedUsuario->bind_param('s', $usuario); // $mysqli->query($sqlUsuario);
+        $sqlPreparedUsuario->execute();
+        $sqlPreparedUsuario->store_result();
+        // print $sqlPreparedUsuario->num_rows;
+        
+	if(($sqlPreparedUsuario->num_rows) > 0) {
+            
+            $sqlPreparedUsuario->close();
+            
+            $sqlPreparedPassword = $mysqli->prepare("SELECT * FROM usuario WHERE pass LIKE ?");
+            $sqlPreparedPassword->bind_param('s', $hashedPassword);
+            $sqlPreparedPassword->execute();
+            $sqlPreparedPassword->store_result();
+            
+		if (($sqlPreparedPassword->num_rows) > 0) {
 			print '<h3>Welcome back, ' . $usuario . '</h3>';
+                        $sqlPreparedPassword->close();
 		} else {
 			print '<h3>Error: acces denied</h3>';
 		}
@@ -31,7 +38,6 @@ require 'connection.php';
 	
 	print $usuario . "<br>";
 	print $hashedPassword . "<br>";
-	print $resultSet->num_rows;
 
 		// if ($usuario == mysqli && $contraseña == "") {
 		// 	print '<h3>Welcome back, ' . $usuario . '</h3>';
