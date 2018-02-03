@@ -141,4 +141,40 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         
     }
     
+    public function getFromLoginAndPass($bean) {
+        if ($this->conexion) {
+            try {
+                $resultSet = NULL;
+                $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 " . 
+                        "AND login=? AND pass=?");
+                $preparedStatement->bind_param('sss', $this->tabla, $bean->getLogin, 
+                        $bean->getPass);
+                $preparedStatement->execute();
+                $preparedStatement->store_result();
+                if ($preparedStatement->num_rows > 0) {
+                    $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
+                    $bean->setId($resultSet['id']);
+                    $bean->setNombre($resultSet['nombre']);
+                    $bean->setPrimerapellido($resultSet['primerapellido']);
+                    $bean->setSegundoapellido($resultSet['segundoapellido']);
+                    $bean->setLogin($resultSet['login']);
+                    $bean->setPass($resultSet['pass']);
+                    $bean->setEmail($resultSet['email']);
+                    $bean->setTipousuario_id($resultSet['tipousuario_id']);
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            } finally {
+                if ($preparedStatement !== NULL) {
+                    $preparedStatement->close();
+                }
+            }
+        } else {
+            throw new Exception();
+        }
+        return $bean;
+    }
+    
 }
