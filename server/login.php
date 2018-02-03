@@ -8,29 +8,22 @@ require 'connection.php';
 
 	$usuario = $_GET['user'];
 	$hashedPassword = hash('sha256', $_GET['pass']);
+        $resultSet = [];
 
-	$sqlPreparedUsuario = $mysqli->prepare("SELECT * FROM usuario WHERE login LIKE ?");
-	$sqlPreparedUsuario->bind_param('s', $usuario);
-        $sqlPreparedUsuario->execute();
-        $sqlPreparedUsuario->store_result();
+	$preparedStatement = $mysqli->prepare("SELECT * FROM usuario WHERE login LIKE ? AND pass LIKE ?");
+	$preparedStatement->bind_param('ss', $usuario, $hashedPassword);
+        $preparedStatement->execute();
+        $preparedStatement->store_result();
         
-	if(($sqlPreparedUsuario->num_rows) > 0) {
+	if($preparedStatement->num_rows > 0) {
             
-            $sqlPreparedUsuario->close();
+            $filas->mysqli_fetch_array(MYSQLI_ASSOC);
+            $resultSet = $filas;
             
-            $sqlPreparedPassword = $mysqli->prepare("SELECT * FROM usuario WHERE pass LIKE ?");
-            $sqlPreparedPassword->bind_param('s', $hashedPassword);
-            $sqlPreparedPassword->execute();
-            $sqlPreparedPassword->store_result();
+            $userBean = new UsuarioBean();
             
-		if (($sqlPreparedPassword->num_rows) > 0) {
-			print '<h3>Welcome back, ' . $usuario . '</h3>';
-                        $sqlPreparedPassword->close();
-		} else {
-			print '<h3>Error: acces denied</h3>';
-		}
 	} else {
-			print '<h3>Error: acces denied</h3>';
+            print '<h3>Error: acces denied</h3>';
 	}
 
 	// DEBUGG
