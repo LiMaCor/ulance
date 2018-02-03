@@ -26,11 +26,11 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     // MÉTODOS
 
     public function get($bean) {
-        if (conexion) {
+        if ($this->conexion) {
             try {
                 $resultSet = NULL;
                 $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
-                $preparedStatement->bind_param('si', tabla, $bean->getId());
+                $preparedStatement->bind_param('si', $this->tabla, $bean->getId());
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
@@ -60,17 +60,16 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     }
     
     public function set($bean) {
-        if (conexion) {
+        if ($this->conexion) {
             $iResult = 0;
             try {
-                $resultSet = NULL;
                 $insert = TRUE;
                 if ($bean->getId() == NULL) {
                     $preparedStatement = $mysqli->prepare("INSERT INTO ?" . 
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('ssssssssi', tabla, $bean->getDni, 
+                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $bean->getDni, 
                             $bean->getNombre, $bean->getPrimerapellido, 
                             $bean->getSegundoapellido, $bean->getLogin, 
                             $bean->getPass, $bean->getEmail, $bean->getTipousuario_id);
@@ -82,20 +81,18 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "dni=?, nombre=?, primerapellido=?, " . 
                             "segundoapellido=?, login=?, pass=?, email=?, " . 
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('ssssssssii', tabla, $bean->getDni, 
+                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $bean->getDni, 
                             $bean->getNombre, $bean->getPrimerapellido, $bean->getSegundoapellido, 
                             $bean->getLogin, $bean->getPass, $bean->getEmail, 
                             $bean->getTipousuario_id);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                 }
-                if ($preparedStatement->num_rows > 0) {
-                    $iResult = $mysqli->insert_id;
-                    if ($iResult < 1) {
-                        throw new Exception();
-                    }
-                } else {
+                if ($preparedStatement->num_rows < 0) {                    
                     throw new Exception();
+                }
+                if ($insert) {
+                    $iResult = $mysqli->insert_id;
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -111,7 +108,29 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     }
     
     public function remove($id) {
-        
+        if ($this->conexion) {
+            $iResult = 0;
+            try {
+                $preparedStatement = $mysqli->prepare("DELETE FROM ? WHERE id=?");
+                $preparedStatement->bind_param('si', $this->tabla, $id);
+                $preparedStatement->execute();
+                $preparedStatement->store_result();
+                if ($preparedStatement->num_rows > 0) {
+                    $iResult = $preparedStatement->num_rows;
+                } else {
+                    throw new Exception();
+                }
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            } finally {
+                if ($preparedStatement !== NULL) {
+                    $preparedStatement->close();
+                }
+            }
+        } else {
+            throw new Exception();
+        }
+        return $iResult;
     }
 
     public function getCount($data) {
