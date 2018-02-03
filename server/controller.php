@@ -30,9 +30,9 @@ include 'connection.php';
 
 // jsonHeader();
 
-$connection = $code;
+$connection = $mysqli;
 
-if ($connection == 200) {
+if ($connection) {
     print '<h3>Connection succesfully done!</h3>';
 } else {
     print '<h3>Error: unable to connect. Contact your administrator</h3>';
