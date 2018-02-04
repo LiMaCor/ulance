@@ -16,11 +16,8 @@ class CuentaAsociadaBean {
     
     // CONSTRUCTOR
     
-    public function construct($id, $descripcion, $usuario_id, $cuentabancaria_id) {
-        $this->id = $id;
-        $this->descripcion = $descripcion;
-        $this->usuario_id = $usuario_id;
-        $this->cuentabancaria_id = $cuentabancaria_id;
+    public function construct() {
+        
     }
     
     // GETTER & SETTER

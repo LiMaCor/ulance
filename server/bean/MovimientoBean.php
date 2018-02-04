@@ -18,13 +18,8 @@ class MovimientoBean {
     
     // CONSTRUCTOR
     
-    public function construct($id, $concepto, $cantidad, $fecha, $categoriamovimiento_id, $cuentabancaria_id) {
-        $this->id = $id;
-        $this->concepto = $concepto;
-        $this->cantidad = $cantidad;
-        $this->fecha = $fecha;
-        $this->categoriamovimiento_id = $categoriamovimiento_id;
-        $this->cuentabancaria_id = $cuentabancaria_id;
+    public function construct() {
+        
     }
     
     // GETTER & SETTER

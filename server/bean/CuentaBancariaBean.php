@@ -15,10 +15,8 @@ class CuentaBancariaBean {
     
     // CONSTRUCTOR
     
-    public function construct($id, $iban, $banco_id) {
-        $this->id = $id;
-        $this->iban = $iban;
-        $this->banco_id = $banco_id;
+    public function construct() {
+        
     }
 
     // GETTER & SETTER

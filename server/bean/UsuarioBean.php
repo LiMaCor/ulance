@@ -21,17 +21,10 @@ class UsuarioBean {
     
     // CONSTRUCTOR
     
-    public function construct($id, $nombre, $primerapellido, $segundoapellido, $login, $pass, $email, $tipousuario_id) {
-        $this->id = $id;
-        $this->nombre = $nombre;
-        $this->primerapellido = $primerapellido;
-        $this->segundoapellido = $segundoapellido;
-        $this->login = $login;
-        $this->pass = $pass;
-        $this->email = $email;
-        $this->tipousuario_id = $tipousuario_id;
+    public function construct() {
+        
     }
-    
+
     // GETTER & SETTER
     
     public function getId() {

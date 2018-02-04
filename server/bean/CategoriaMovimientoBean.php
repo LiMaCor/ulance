@@ -14,9 +14,8 @@ class CategoriaMovimientoBean {
     
     // CONSTRUCTOR
     
-    public function construct($id, $descripcion) {
-        $this->id = $id;
-        $this->descripcion = $descripcion;
+    public function construct() {
+        
     }
 
     // GETTER & SETTER
