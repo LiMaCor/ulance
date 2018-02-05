@@ -85,7 +85,25 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
     
     public function login() {
-        
+        if ($this->checkPermission("login")) {
+            $conexion = $mysqli;
+            $json = $_GET['json'];
+            try {
+                $aJson = json_decode($json, true);
+                $oBean = new UsuarioBean($aJson);
+                $oDao = new UsuarioDao($conexion);
+                $oResult = $oDao->getFromLoginAndPass($oBean);
+                session_start();
+                $_SESSION['user'] = $oResult;
+                $aResult = [200, $oResult];
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            }
+            return new ReplyBean($aResult);
+        } else {
+            $aResult = [401, "Unauthorized operation"];
+            return new ReplyBean($aResult);
+        }
     }
     
     public function logout() {
