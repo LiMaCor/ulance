@@ -38,6 +38,8 @@ if ($connection) {
     print '<h3>Error: unable to connect. Contact your administrator</h3>';
 }
 
+
+
 ?>
 
 <!--

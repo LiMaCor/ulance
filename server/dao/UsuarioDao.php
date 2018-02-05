@@ -30,19 +30,19 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             try {
                 $resultSet = NULL;
                 $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $bean->getId());
+                $preparedStatement->bind_param('si', $this->tabla, $bean->id);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
                     $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
-                    $bean->setId($resultSet['id']);
-                    $bean->setNombre($resultSet['nombre']);
-                    $bean->setPrimerapellido($resultSet['primerapellido']);
-                    $bean->setSegundoapellido($resultSet['segundoapellido']);
-                    $bean->setLogin($resultSet['login']);
-                    $bean->setPass($resultSet['pass']);
-                    $bean->setEmail($resultSet['email']);
-                    $bean->setTipousuario_id($resultSet['tipousuario_id']);
+                    $bean->id = $resultSet['id'];
+                    $bean->nombre = $resultSet['nombre'];
+                    $bean->primerapellido = $resultSet['primerapellido'];
+                    $bean->segundoapellido = $resultSet['segundoapellido'];
+                    $bean->login = $resultSet['login'];
+                    $bean->pass = $resultSet['pass'];
+                    $bean->email = $resultSet['email'];
+                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
                 } else {
                     throw new Exception();
                 }
@@ -107,12 +107,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $iResult;
     }
     
-    public function remove($id) {
+    public function remove($array) {
         if ($this->conexion) {
             $iResult = 0;
             try {
                 $preparedStatement = $mysqli->prepare("DELETE FROM ? WHERE id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $id);
+                $preparedStatement->bind_param('si', $this->tabla, $array->id);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
@@ -147,20 +147,20 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 $resultSet = NULL;
                 $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 " . 
                         "AND login=? AND pass=?");
-                $preparedStatement->bind_param('sss', $this->tabla, $bean->getLogin, 
-                        $bean->getPass);
+                $preparedStatement->bind_param('sss', $this->tabla, $bean->login, 
+                        $bean->pass);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
                     $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
-                    $bean->setId($resultSet['id']);
-                    $bean->setNombre($resultSet['nombre']);
-                    $bean->setPrimerapellido($resultSet['primerapellido']);
-                    $bean->setSegundoapellido($resultSet['segundoapellido']);
-                    $bean->setLogin($resultSet['login']);
-                    $bean->setPass($resultSet['pass']);
-                    $bean->setEmail($resultSet['email']);
-                    $bean->setTipousuario_id($resultSet['tipousuario_id']);
+                    $bean->id = $resultSet['id'];
+                    $bean->nombre = $resultSet['nombre'];
+                    $bean->primerapellido = $resultSet['primerapellido'];
+                    $bean->segundoapellido = $resultSet['segundoapellido'];
+                    $bean->login = $resultSet['login'];
+                    $bean->pass = $resultSet['pass'];
+                    $bean->email = $resultSet['email'];
+                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
                 } else {
                     throw new Exception();
                 }
