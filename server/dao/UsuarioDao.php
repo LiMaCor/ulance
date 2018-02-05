@@ -64,15 +64,15 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             $iResult = 0;
             try {
                 $insert = TRUE;
-                if ($bean->getId() == NULL) {
+                if ($bean->id == NULL) {
                     $preparedStatement = $mysqli->prepare("INSERT INTO ?" . 
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $bean->getDni, 
-                            $bean->getNombre, $bean->getPrimerapellido, 
-                            $bean->getSegundoapellido, $bean->getLogin, 
-                            $bean->getPass, $bean->getEmail, $bean->getTipousuario_id);
+                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $bean->dni, 
+                            $bean->nombre, $bean->primerapellido, 
+                            $bean->segundoapellido, $bean->login, 
+                            $bean->pass, $bean->email, $bean->tipousuario_id);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();                    
                 } else {
@@ -81,10 +81,10 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "dni=?, nombre=?, primerapellido=?, " . 
                             "segundoapellido=?, login=?, pass=?, email=?, " . 
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $bean->getDni, 
-                            $bean->getNombre, $bean->getPrimerapellido, $bean->getSegundoapellido, 
-                            $bean->getLogin, $bean->getPass, $bean->getEmail, 
-                            $bean->getTipousuario_id);
+                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $bean->dni, 
+                            $bean->nombre, $bean->primerapellido, $bean->segundoapellido, 
+                            $bean->login, $bean->pass, $bean->email, 
+                            $bean->tipousuario_id);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                 }
