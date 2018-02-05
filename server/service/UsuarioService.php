@@ -53,11 +53,18 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     
     public function set() {
         if ($this->checkPermission("set")) {
+            $conexion = $mysqli;
+            $iResult = NULL;
             $json = $_GET['json'];
             $aJson = json_decode($json, true); // Con "true", devuelve un array asociativo
-            // Falta resolver el casteo del array asociativo a una clase personalizada
+            $oBean = new UsuarioBean($aJson); // Actualizado: los POJO's se crean con arrays asociativos
+            $oDao = new UsuarioDao($conexion);
+            $iResult = $oDao->set($oBean);
+            $aResult = [200, $iResult];
+            return new ReplyBean($aResult);
         } else {
-            return new ReplyBean(401, "Unauthorized operation");
+            $aResult = [401, "Unauthorized operation"];
+            return new ReplyBean($aResult);
         }
     }
     
