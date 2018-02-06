@@ -116,8 +116,4 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
     
-    public function check() {
-        
-    }
-    
 }
