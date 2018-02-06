@@ -35,14 +35,16 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
                     $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
-                    $bean->id = $resultSet['id'];
-                    $bean->nombre = $resultSet['nombre'];
-                    $bean->primerapellido = $resultSet['primerapellido'];
-                    $bean->segundoapellido = $resultSet['segundoapellido'];
-                    $bean->login = $resultSet['login'];
-                    $bean->pass = $resultSet['pass'];
-                    $bean->email = $resultSet['email'];
-                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
+                    $oBean = new UsuarioBean();
+                    $oBean->construct($resultSet);
+//                    $bean->id = $resultSet['id'];
+//                    $bean->nombre = $resultSet['nombre'];
+//                    $bean->primerapellido = $resultSet['primerapellido'];
+//                    $bean->segundoapellido = $resultSet['segundoapellido'];
+//                    $bean->login = $resultSet['login'];
+//                    $bean->pass = $resultSet['pass'];
+//                    $bean->email = $resultSet['email'];
+//                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
                 } else {
                     throw new Exception();
                 }
@@ -56,7 +58,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $bean;
+        return $oBean;
     }
     
     public function set($bean) {
@@ -153,14 +155,16 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
                     $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
-                    $bean->id = $resultSet['id'];
-                    $bean->nombre = $resultSet['nombre'];
-                    $bean->primerapellido = $resultSet['primerapellido'];
-                    $bean->segundoapellido = $resultSet['segundoapellido'];
-                    $bean->login = $resultSet['login'];
-                    $bean->pass = $resultSet['pass'];
-                    $bean->email = $resultSet['email'];
-                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
+                    $oBean = new UsuarioBean();
+                    $oBean->construct($resultSet);
+//                    $bean->id = $resultSet['id'];
+//                    $bean->nombre = $resultSet['nombre'];
+//                    $bean->primerapellido = $resultSet['primerapellido'];
+//                    $bean->segundoapellido = $resultSet['segundoapellido'];
+//                    $bean->login = $resultSet['login'];
+//                    $bean->pass = $resultSet['pass'];
+//                    $bean->email = $resultSet['email'];
+//                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
                 } else {
                     throw new Exception();
                 }
@@ -174,7 +178,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $bean;
+        return $oBean;
     }
     
 }
