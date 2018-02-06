@@ -73,7 +73,23 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
     
     public function remove() {
-        
+        if ($this->checkPermission("remove")) {
+            $conexion = $mysqli;
+            $iResult = NULL;
+            $json = $_GET['json'];
+            try {
+                $aJson = json_decode($json, true);
+                $oDao = new UsuarioDao($conexion);
+                $iResult = $oDao->remove($aJson);
+                $aResult = [200, $iResult];
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            }
+            return new ReplyBean($aResult);
+        } else {
+            $aResult = [401, "Unauthorized operation"];
+            return new ReplyBean($aResult);
+        }
     }
     
     public function getCount() {
