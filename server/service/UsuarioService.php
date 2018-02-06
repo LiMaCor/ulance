@@ -107,7 +107,13 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
     
     public function logout() {
-        
+        if ($this->checkPermission("logout")) {
+            session_destroy();
+            $aResult = [200, "Session is closed"];
+            return new ReplyBean($aResult);
+        } else {
+            throw new Exception();
+        }
     }
     
     public function check() {
