@@ -1,6 +1,7 @@
 <?php
 
-include 'connection.php';
+require 'static/connection.php';
+require 'helper/MappingHelper.php';
 
 /**
 * Controlador de la aplicación
@@ -52,7 +53,6 @@ if (!isset($_SESSION['user'])) {
 // Accedemos a las operaciones de la aplicación y devolvemos los resultados
 
 $control = new MappingHelper();
-
 $resultado = $control->methodToExecute();
 
-return "{\"status\":" + $resultado->code + ", \"json\":" + $resultado->json + "}";
+return '{\"status\":' + $resultado->code + ', \"json\":' + $resultado->json + '}';
