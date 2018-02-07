@@ -30,6 +30,8 @@ include 'connection.php';
 
 // jsonHeader();
 
+// Comprobamos la conexión a la base de datos
+
 $connection = $mysqli;
 
 if ($connection) {
@@ -38,20 +40,19 @@ if ($connection) {
     print '<h3>Error: unable to connect. Contact your administrator</h3>';
 }
 
+// Comprobamos la sesión: si existe, la reanuda. Si no, indica que no existe la sesión.
 
+if (!isset($_SESSION['user'])) {
+    print "<h3>No hay una sesión abierta</h3>";
+} else {
+    session_start();
+    print $_SESSION['user'];
+}
 
-?>
+// Accedemos a las operaciones de la aplicación y devolvemos los resultados
 
-<!--
-	DEBUGG
--->
+$control = new MappingHelper();
 
-<html>
-	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<title>Controlador PHP</title>
-	</head>
-	<body>
-		<a href="login.php?user=lian&pass=macarena">Login</a>
-	</body>
-</html>
+$resultado = $control->methodToExecute();
+
+return "{\"status\":" + $resultado->code + ", \"json\":" + $resultado->json + "}";
