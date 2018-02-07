@@ -5,7 +5,6 @@
  *
  * @author PixelZer0
  */
-
 // CLASES REQUERIDAS
 
 require 'static/connection.php';
@@ -15,15 +14,15 @@ require 'service/ServiceTableInterface.php';
 require 'service/ServiceViewInterface.php';
 
 class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
-    
+
     // CONSTRUCTOR
-    
+
     public function construct() {
         
     }
 
     // MÉTODOS
-    
+
     private function checkPermission($metodo) {
         $userSession = $_SESSION['user'];
         if (isset($userSession)) {
@@ -52,7 +51,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             return new ReplyBean(401, "Unauthorized operation");
         }
     }
-    
+
     public function set() {
         if ($this->checkPermission("set")) {
             $conexion = $mysqli;
@@ -73,7 +72,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             return new ReplyBean($aResult);
         }
     }
-    
+
     public function remove() {
         if ($this->checkPermission("remove")) {
             $conexion = $mysqli;
@@ -93,22 +92,22 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             return new ReplyBean($aResult);
         }
     }
-    
+
     public function getCount() {
         
     }
-    
+
     public function getPage() {
         
     }
-    
+
     public function login() {
-        if ($this->checkPermission("login")) {
-            $conexion = $mysqli;
-            $json = $_GET['json'];
+        $conexion = $mysqli;
+        $json = $_GET['json'];
+        $aJson = json_decode($json, true);
+        $oBean = new UsuarioBean($aJson);
+        if (!($oBean->login) == "" && !($oBean->pass) == "") {
             try {
-                $aJson = json_decode($json, true);
-                $oBean = new UsuarioBean($aJson);
                 $oDao = new UsuarioDao($conexion);
                 $oResult = $oDao->getFromLoginAndPass($oBean);
                 session_start();
@@ -123,7 +122,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             return new ReplyBean($aResult);
         }
     }
-    
+
     public function logout() {
         if ($this->checkPermission("logout")) {
             session_destroy();
@@ -133,5 +132,5 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             throw new Exception();
         }
     }
-    
+
 }
