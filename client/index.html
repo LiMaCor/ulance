@@ -1,33 +1,64 @@
 <!DOCTYPE html>
 <html>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<head>
-	<title>Login</title>
-	<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
-</head>
-<body>
-	<!-- <form action="login.php" method="post">
- 		<p>User: <input type="text" name="user"/></p>
- 		<p>Pass: <input type="password" name="password"/></p>
- 		<p><input type="submit"/></p>
-	</form> -->
-
-<h3>Bienvenido <span id="user"></span></h3>
-
-	<script>
-		$(document).ready(function() {
-			$.ajax({
-				type: "GET",
-				url: "http://localhost/server/connection.php",
-				dataType: "json",
-				success: function (response) {
-					$("#user").empty().append(response.json.user);
-				},
-				error: function(error) {
-					alert("Error");
-				}
-			});
-		});
-	</script>
-</body>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <head>
+        <title>Login</title>
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+        <script src="forge-sha256.min.js" type="text/javascript"></script>
+    </head>
+    <body>
+        <!-- <form action="login.php" method="post">
+                <p>User: <input type="text" name="user"/></p>
+                <p>Pass: <input type="password" name="password"/></p>
+                <p><input type="submit"/></p>
+        </form> -->
+        <form id="access">
+            <input type="text" id="username" placeholder="Username" required autofocus name="username">
+            <input type="password" id="password" placeholder="Password" required autofocus name="password">
+        </form>
+        <button type="submit" id="login">Login</button>
+        <div id="loggedUser">
+            <h3>Bienvenido <span id="user"></span></h3>
+        </div>
+        <script>
+            $.fn.serializeObject = function ()
+            {
+                // http://jsfiddle.net/davidhong/gP9bh/
+                var o = {};
+                var a = this.serializeArray();
+                $.each(a, function () {
+                    if (o[this.name] !== undefined) {
+                        if (!o[this.name].push) {
+                            o[this.name] = [o[this.name]];
+                        }
+                        o[this.name].push(this.value || '');
+                    } else {
+                        o[this.name] = encodeURIComponent(this.value) || '';
+                    }
+                });
+                return o;
+            };
+            $(document).ready(function () {
+                $("#loggedUser").hide();
+                $("#login").click(function () {
+                    valores = $("#access").serializeObject();
+                    valores.password = forge_sha256($("#password").val());
+                    datos = {json: JSON.stringify(valores)};
+                    $.ajax({
+                        type: "GET",
+                        url: "http://localhost/ulance/server/controller.php?ob=usuario&op=login",
+                        data: datos,
+                        dataType: "json",
+                        success: function (response) {
+                            $("#user").empty().append(response.json.login);
+                            $("#loggedUser").show();
+                        },
+                        error: function (error) {
+                            alert("Error");
+                        }
+                    });
+                })
+            });
+        </script>
+    </body>
 </html>
