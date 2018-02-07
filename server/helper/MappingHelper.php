@@ -6,6 +6,15 @@
  * @author PixelZer0
  */
 
+require 'bean/ReplyBean.php';
+require 'service/UsuarioService.php';
+//require 'service/TipoUsuarioService.php';
+//require 'service/MovimientoService.php';
+//require 'service/CuentaBancariaService.php';
+//require 'service/CuentaAsociadaService.php';
+//require 'service/CategoriaMovimientoService.php';
+//require 'service/BancoService.php';
+
 class MappingHelper {
     
     public static function methodToExecute() {

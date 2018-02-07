@@ -8,9 +8,11 @@
 
 // CLASES REQUERIDAS
 
-require 'connection.php';
-require 'UsuarioBean.php';
-require 'UsuarioDao.php';
+require 'static/connection.php';
+require 'bean/UsuarioBean.php';
+require 'dao/UsuarioDao.php';
+require 'service/ServiceTableInterface.php';
+require 'service/ServiceViewInterface.php';
 
 class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     

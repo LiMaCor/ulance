@@ -8,7 +8,9 @@
 
 // CLASES REQUERIDAS
 
-require 'connection.php';
+require 'static/connection.php';
+require 'dao/DaoTableInterface.php';
+require 'dao/DaoViewInterface.php';
 
 class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     
