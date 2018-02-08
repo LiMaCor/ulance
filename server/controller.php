@@ -1,6 +1,6 @@
 <?php
 
-require 'static/connection.php';
+require 'helper/ConnectionHelper.php';
 require 'helper/MappingHelper.php';
 
 /**
@@ -33,9 +33,9 @@ require 'helper/MappingHelper.php';
 
 // Comprobamos la conexión a la base de datos
 
-$connection = $mysqli;
+$connection = new ConnectionHelper();
 
-if ($connection) {
+if ($connection->getConnectionDB()) {
     print '<h3>Connection succesfully done!</h3>';
 } else {
     print '<h3>Error: unable to connect. Contact your administrator</h3>';

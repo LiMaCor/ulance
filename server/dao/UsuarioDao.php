@@ -8,7 +8,7 @@
 
 // CLASES REQUERIDAS
 
-require 'static/connection.php';
+require 'helper/ConnectionHelper.php';
 require 'dao/DaoTableInterface.php';
 require 'dao/DaoViewInterface.php';
 
