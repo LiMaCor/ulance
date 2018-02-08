@@ -5,13 +5,22 @@ require 'dbConstants.php';
 /**
  * Devuelve true o false si se ha realizado la conexión con la base de datos
  */
+class ConnectionHelper {
 
-	$mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+    // VARIABLES
+    
+    private $mysqli;
 
-	if ($mysqli->connect_errno) {
-		die();
-		return false;
-	} else {
-		return true;
-	}
-        
+    // MÉTODOS
+    
+    public static function getConnectionDB() {
+        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+        if ($mysqli->connect_errno) {
+            die();
+            return false;
+        } else {
+            return $mysqli;
+        }
+    }
+
+}
