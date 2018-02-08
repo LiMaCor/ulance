@@ -1,15 +1,16 @@
 <?php
 
-require 'dbConstants.php';
-
 /**
- * Devuelve true o false si se ha realizado la conexión con la base de datos
+ * Description of ConnectionHelper
+ *
+ * @author PixelZer0
  */
-class ConnectionHelper {
 
-    // VARIABLES
-    
-    private $mysqli;
+// CLASES REQUERIDAS
+
+require 'static/dbConstants.php';
+
+class ConnectionHelper {
 
     // MÉTODOS
     
@@ -22,5 +23,5 @@ class ConnectionHelper {
             return $mysqli;
         }
     }
-
+    
 }
