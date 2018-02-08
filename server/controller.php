@@ -35,10 +35,10 @@ require 'helper/MappingHelper.php';
 
 $connection = new ConnectionHelper();
 
-if ($connection->getConnectionDB()) {
-    print '<h3>Connection succesfully done!</h3>';
-} else {
+if (!($connection->getConnectionDB())) {
     print '<h3>Error: unable to connect. Contact your administrator</h3>';
+} else {
+    print '<h3>Connection succesfully done!</h3>';
 }
 
 // Comprobamos la sesión: si existe, la reanuda. Si no, indica que no existe la sesión.
