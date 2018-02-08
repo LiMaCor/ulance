@@ -5,16 +5,17 @@
  *
  * @author PixelZer0
  */
+
 // CLASES REQUERIDAS
 
-require 'static/connection.php';
+require 'helper/ConnectionHelper.php';
 require 'bean/UsuarioBean.php';
 require 'dao/UsuarioDao.php';
 require 'service/ServiceTableInterface.php';
 require 'service/ServiceViewInterface.php';
 
 class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
-
+    
     // CONSTRUCTOR
 
     public function construct() {
