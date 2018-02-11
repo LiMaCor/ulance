@@ -35,7 +35,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function get() {
         if ($this->checkPermission("get")) {
-            $id = $_GET['id'];
+            $id = $_POST['id'];
             $connection = new ConnectionHelper();
             try {
                 $oBean = new UsuarioBean();
@@ -57,7 +57,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         if ($this->checkPermission("set")) {
             $connection = new ConnectionHelper();
             $iResult = NULL;
-            $json = $_GET['json'];
+            $json = $_POST['json'];
             try {
                 $aJson = json_decode($json, true); // Con "true", devuelve un array asociativo
                 $oBean = new UsuarioBean($aJson); // Actualizado: los POJO's se crean con arrays asociativos
@@ -78,7 +78,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         if ($this->checkPermission("remove")) {
             $connection = new ConnectionHelper();
             $iResult = NULL;
-            $json = $_GET['json'];
+            $json = $_POST['json'];
             try {
                 $aJson = json_decode($json, true);
                 $oDao = new UsuarioDao($connection->getConnection());
@@ -104,7 +104,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function login() {
         $connection = new ConnectionHelper();
-        $json = $_GET['json'];
+        $json = $_POST['json'];
         $aJson = json_decode($json, true);
         $oBean = new UsuarioBean($aJson);
         if (!($oBean->login) == "" && !($oBean->pass) == "") {

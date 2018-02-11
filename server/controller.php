@@ -52,17 +52,17 @@ if (!isset($_SESSION['user'])) {
 
 // DEBUGG: Comprobamos el contenido de $_GET ---> OK
 
-print $_GET['ob'];
-print $_GET['op'];
-//print $_GET['json'];
+print $_POST['ob'];
+print $_POST['op'];
+//print $_POST['json'];
 
 // Accedemos a las operaciones de la aplicación y devolvemos los resultados
 
 $control = new MappingHelper();
 
-$ob = $_GET['ob'];
-$op = $_GET['op'];
-//$json = $_GET['json'];
+$ob = $_POST['ob'];
+$op = $_POST['op'];
+$json = $_POST['json'];
 
 $resultado = $control->methodToExecute($ob, $op);
 
