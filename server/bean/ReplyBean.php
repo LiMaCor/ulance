@@ -27,20 +27,20 @@ class ReplyBean {
 
     // MÉTODOS
     
-//    public function getCode() {
-//        return $this->code;
-//    }
-//
-//    public function getJson() {
-//        return $this->json;
-//    }
-//
-//    public function setCode($code) {
-//        $this->code = $code;
-//    }
-//
-//    public function setJson($json) {
-//        $this->json = $json;
-//    }
+    public function getCode() {
+        return $this->code;
+    }
+
+    public function getJson() {
+        return $this->json;
+    }
+
+    public function setCode($code) {
+        $this->code = $code;
+    }
+
+    public function setJson($json) {
+        $this->json = $json;
+    }
     
 }
