@@ -10,14 +10,14 @@ class UsuarioBean {
     
     // VARIABLES
     
-    private $id;
-    private $nombre;
-    private $primerapellido;
-    private $segundoapellido;
-    private $login;
-    private $pass;
-    private $email;
-    private $tipousuario_id;
+    public $id;
+    public $nombre;
+    public $primerapellido;
+    public $segundoapellido;
+    public $login;
+    public $pass;
+    public $email;
+    public $tipousuario_id;
     
     // CONSTRUCTOR
     

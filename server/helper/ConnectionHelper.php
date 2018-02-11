@@ -12,16 +12,24 @@ require 'static/dbConstants.php';
 
 class ConnectionHelper {
 
+    // VARIABLES
+    
+    private $mysqli;
+    
     // MÉTODOS
     
-    public static function getConnectionDB() {
-        $mysqli = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
-        if ($mysqli->connect_errno) {
-            die();
+    public function checkDBConnection() {
+        $connection = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
+        if ($connection->connect_errno) {
             return false;
         } else {
-            return $mysqli;
+            $this->mysqli = $connection;
+            return true;
         }
     }
     
+    public function getConnection() {
+        return $this->mysqli;
+    }
+
 }

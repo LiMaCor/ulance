@@ -8,7 +8,6 @@
 
 // CLASES REQUERIDAS
 
-require 'helper/ConnectionHelper.php';
 require 'dao/DaoTableInterface.php';
 require 'dao/DaoViewInterface.php';
 
@@ -31,7 +30,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($this->conexion) {
             try {
                 $resultSet = NULL;
-                $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
+                $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
                 $preparedStatement->bind_param('si', $this->tabla, $bean->id);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -69,7 +68,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             try {
                 $insert = TRUE;
                 if ($bean->id == NULL) {
-                    $preparedStatement = $mysqli->prepare("INSERT INTO ?" . 
+                    $preparedStatement = $this->conexion->prepare("INSERT INTO ?" . 
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
@@ -81,7 +80,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     $preparedStatement->store_result();                    
                 } else {
                     $insert = FALSE;
-                    $preparedStatement = $mysqli->prepare("UPDATE ? SET " . 
+                    $preparedStatement = $this->conexion->prepare("UPDATE ? SET " . 
                             "dni=?, nombre=?, primerapellido=?, " . 
                             "segundoapellido=?, login=?, pass=?, email=?, " . 
                             "tipousuario_id =? WHERE id=?");
@@ -96,7 +95,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     throw new Exception();
                 }
                 if ($insert) {
-                    $iResult = $mysqli->insert_id;
+                    $iResult = $this->conexion->insert_id;
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -115,7 +114,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($this->conexion) {
             $iResult = 0;
             try {
-                $preparedStatement = $mysqli->prepare("DELETE FROM ? WHERE id=?");
+                $preparedStatement = $this->conexion->prepare("DELETE FROM ? WHERE id=?");
                 $preparedStatement->bind_param('si', $this->tabla, $array->id);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -149,7 +148,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($this->conexion) {
             try {
                 $resultSet = NULL;
-                $preparedStatement = $mysqli->prepare("SELECT * FROM ? WHERE 1=1 " . 
+                $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 " . 
                         "AND login=? AND pass=?");
                 $preparedStatement->bind_param('sss', $this->tabla, $bean->login, 
                         $bean->pass);

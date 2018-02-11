@@ -10,8 +10,8 @@ class ReplyBean {
     
     // VARIABLES
     
-    private $code;
-    private $json;
+    public $code;
+    public $json;
     
     // CONSTRUCTOR
     

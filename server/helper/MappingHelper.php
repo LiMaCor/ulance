@@ -17,9 +17,7 @@ require 'service/UsuarioService.php';
 
 class MappingHelper {
     
-    public static function methodToExecute() {
-        $ob = $_GET['ob'];
-        $op = $_GET['op'];
+    public static function methodToExecute($ob, $op) {
         $oReplyBean = NULL;
         switch($ob) {
             case "usuario":

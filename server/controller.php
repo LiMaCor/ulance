@@ -1,7 +1,7 @@
 <?php
 
-require 'helper/ConnectionHelper.php';
 require 'helper/MappingHelper.php';
+require 'helper/ConnectionHelper.php';
 
 /**
 * Controlador de la aplicación
@@ -35,10 +35,10 @@ require 'helper/MappingHelper.php';
 
 $connection = new ConnectionHelper();
 
-if (!($connection->getConnectionDB())) {
-    print '<h3>Error: unable to connect. Contact your administrator</h3>';
-} else {
+if ($connection->checkDBConnection()) {
     print '<h3>Connection succesfully done!</h3>';
+} else {
+    print '<h3>Error: unable to connect. Contact your administrator</h3>';
 }
 
 // Comprobamos la sesión: si existe, la reanuda. Si no, indica que no existe la sesión.
@@ -50,9 +50,20 @@ if (!isset($_SESSION['user'])) {
     print $_SESSION['user'];
 }
 
+// DEBUGG: Comprobamos el contenido de $_GET ---> OK
+
+print $_GET['ob'];
+print $_GET['op'];
+//print $_GET['json'];
+
 // Accedemos a las operaciones de la aplicación y devolvemos los resultados
 
 $control = new MappingHelper();
-$resultado = $control->methodToExecute();
+
+$ob = $_GET['ob'];
+$op = $_GET['op'];
+//$json = $_GET['json'];
+
+$resultado = $control->methodToExecute($ob, $op);
 
 return '{\"status\":' + $resultado->code + ', \"json\":' + $resultado->json + '}';

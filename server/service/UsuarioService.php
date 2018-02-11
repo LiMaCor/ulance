@@ -8,7 +8,7 @@
 
 // CLASES REQUERIDAS
 
-require 'helper/ConnectionHelper.php';
+//require 'helper/ConnectionHelper.php';
 require 'bean/UsuarioBean.php';
 require 'dao/UsuarioDao.php';
 require 'service/ServiceTableInterface.php';
@@ -36,11 +36,11 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     public function get() {
         if ($this->checkPermission("get")) {
             $id = $_GET['id'];
-            $conexion = $mysqli;
+            $connection = new ConnectionHelper();
             try {
                 $oBean = new UsuarioBean();
                 $oBean->setId($id);
-                $oDao = new UsuarioDao($conexion);
+                $oDao = new UsuarioDao($connection->getConnection());
                 $oBean = $oDao->get($oBean);
                 $json = json_encode($oBean);
                 $oReplyBean = new ReplyBean(200, $json);
@@ -55,13 +55,13 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function set() {
         if ($this->checkPermission("set")) {
-            $conexion = $mysqli;
+            $connection = new ConnectionHelper();
             $iResult = NULL;
             $json = $_GET['json'];
             try {
                 $aJson = json_decode($json, true); // Con "true", devuelve un array asociativo
                 $oBean = new UsuarioBean($aJson); // Actualizado: los POJO's se crean con arrays asociativos
-                $oDao = new UsuarioDao($conexion);
+                $oDao = new UsuarioDao($connection->getConnection());
                 $iResult = $oDao->set($oBean);
                 $aResult = [200, $iResult];
             } catch (Exception $ex) {
@@ -76,12 +76,12 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function remove() {
         if ($this->checkPermission("remove")) {
-            $conexion = $mysqli;
+            $connection = new ConnectionHelper();
             $iResult = NULL;
             $json = $_GET['json'];
             try {
                 $aJson = json_decode($json, true);
-                $oDao = new UsuarioDao($conexion);
+                $oDao = new UsuarioDao($connection->getConnection());
                 $iResult = $oDao->remove($aJson);
                 $aResult = [200, $iResult];
             } catch (Exception $ex) {
@@ -103,13 +103,13 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function login() {
-        $conexion = $mysqli;
+        $connection = new ConnectionHelper();
         $json = $_GET['json'];
         $aJson = json_decode($json, true);
         $oBean = new UsuarioBean($aJson);
         if (!($oBean->login) == "" && !($oBean->pass) == "") {
             try {
-                $oDao = new UsuarioDao($conexion);
+                $oDao = new UsuarioDao($connection->getConnection());
                 $oResult = $oDao->getFromLoginAndPass($oBean);
                 session_start();
                 $_SESSION['user'] = $oResult;
