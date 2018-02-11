@@ -50,20 +50,18 @@ if (!isset($_SESSION['user'])) {
     print $_SESSION['user'];
 }
 
-// DEBUGG: Comprobamos el contenido de $_GET ---> OK
+// DEBUGG: Comprobamos el contenido de $_POST ---> OK
 
-print $_POST['ob'];
-print $_POST['op'];
+//print $_POST['ob'];
+//print $_POST['op'];
 //print $_POST['json'];
 
 // Accedemos a las operaciones de la aplicación y devolvemos los resultados
 
 $control = new MappingHelper();
 
-$ob = $_POST['ob'];
-$op = $_POST['op'];
-$json = $_POST['json'];
+$json = json_decode($_POST['json'], true);
 
-$resultado = $control->methodToExecute($ob, $op);
+$resultado = $control->methodToExecute($json);
 
 return '{\"status\":' + $resultado->code + ', \"json\":' + $resultado->json + '}';

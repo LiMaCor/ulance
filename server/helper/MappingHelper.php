@@ -17,12 +17,12 @@ require 'service/UsuarioService.php';
 
 class MappingHelper {
     
-    public static function methodToExecute($ob, $op, $json) {
+    public static function methodToExecute($json) {
         $oReplyBean = NULL;
-        switch($ob) {
+        switch($json->ob) {
             case "usuario":
                 $oUsuarioService = new UsuarioService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oUsuarioService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -59,7 +59,7 @@ class MappingHelper {
                 break;
             case "tipousuario":
                 $oTipoUsuarioService = new TipoUsuarioService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oTipoUsuarioService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -88,7 +88,7 @@ class MappingHelper {
                 break;
             case "movimiento":
                 $oMovimientoService = new MovimientoService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oMovimientoService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -117,7 +117,7 @@ class MappingHelper {
                 break;
             case "cuentabancaria":
                 $oCuentaBancariaService = new CuentaBancariaService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oCuentaBancariaService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -146,7 +146,7 @@ class MappingHelper {
                 break;
             case "cuentaasociada":
                 $oCuentaAsociadaService = new CuentaAsociadaService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oCuentaAsociadaService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -175,7 +175,7 @@ class MappingHelper {
                 break;
             case "categoriamovimiento":
                 $oCategoriaMovimientoService = new CategoriaMovimientoService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oCategoriaMovimientoService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
@@ -204,7 +204,7 @@ class MappingHelper {
                 break;
             case "banco":
                 $oBancoService = new BancoService();
-                switch($op) {
+                switch($json->op) {
                     case "get":
                         $aResult = [$oBancoService->get($json)];
                         $oReplyBean = new ReplyBean($aResult);
