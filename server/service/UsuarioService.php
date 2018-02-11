@@ -35,7 +35,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function get($json) {
         if ($this->checkPermission("get")) {
-            $id = $json->id;
+            $id = $json['id'];
             $connection = new ConnectionHelper();
             try {
                 $oBean = new UsuarioBean();
@@ -58,7 +58,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             $connection = new ConnectionHelper();
             $iResult = NULL;
             try {
-                $oBean = new UsuarioBean($json->json); // Actualizado: los POJO's se crean con arrays asociativos
+                $oBean = new UsuarioBean($json); // Actualizado: los POJO's se crean con arrays asociativos
                 $oDao = new UsuarioDao($connection->getConnection());
                 $iResult = $oDao->set($oBean);
                 $aResult = [200, $iResult];
@@ -78,7 +78,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             $iResult = NULL;
             try {
                 $oDao = new UsuarioDao($connection->getConnection());
-                $iResult = $oDao->remove($json->json);
+                $iResult = $oDao->remove($json);
                 $aResult = [200, $iResult];
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -100,7 +100,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function login($json) {
         $connection = new ConnectionHelper();
-        $oBean = new UsuarioBean($json->json);
+        $oBean = new UsuarioBean($json);
         if (!($oBean->login) == "" && !($oBean->pass) == "") {
             try {
                 $oDao = new UsuarioDao($connection->getConnection());

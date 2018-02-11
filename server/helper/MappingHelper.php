@@ -19,32 +19,32 @@ class MappingHelper {
     
     public static function methodToExecute($json) {
         $oReplyBean = NULL;
-        switch($json->ob) {
+        switch($json['ob']) {
             case "usuario":
                 $oUsuarioService = new UsuarioService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oUsuarioService->get($json)];
+                        $aResult = [$oUsuarioService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oUsuarioService->set($json)];
+                        $aResult = [$oUsuarioService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oUsuarioService->remove($json)];
+                        $aResult = [$oUsuarioService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oUsuarioService->getCount($json)];
+                        $aResult = [$oUsuarioService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oUsuarioService->getPage($json)];
+                        $aResult = [$oUsuarioService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "login":
-                        $aResult = [$oUsuarioService->login($json)];
+                        $aResult = [$oUsuarioService->login($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "logout":
@@ -59,25 +59,25 @@ class MappingHelper {
                 break;
             case "tipousuario":
                 $oTipoUsuarioService = new TipoUsuarioService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oTipoUsuarioService->get($json)];
+                        $aResult = [$oTipoUsuarioService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oTipoUsuarioService->set($json)];
+                        $aResult = [$oTipoUsuarioService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oTipoUsuarioService->remove($json)];
+                        $aResult = [$oTipoUsuarioService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oTipoUsuarioService->getCount($json)];
+                        $aResult = [$oTipoUsuarioService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oTipoUsuarioService->getPage($json)];
+                        $aResult = [$oTipoUsuarioService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:
@@ -88,25 +88,25 @@ class MappingHelper {
                 break;
             case "movimiento":
                 $oMovimientoService = new MovimientoService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oMovimientoService->get($json)];
+                        $aResult = [$oMovimientoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oMovimientoService->set($json)];
+                        $aResult = [$oMovimientoService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oMovimientoService->remove($json)];
+                        $aResult = [$oMovimientoService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oMovimientoService->getCount($json)];
+                        $aResult = [$oMovimientoService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oMovimientoService->getPage($json)];
+                        $aResult = [$oMovimientoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:
@@ -117,25 +117,25 @@ class MappingHelper {
                 break;
             case "cuentabancaria":
                 $oCuentaBancariaService = new CuentaBancariaService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oCuentaBancariaService->get($json)];
+                        $aResult = [$oCuentaBancariaService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oCuentaBancariaService->set($json)];
+                        $aResult = [$oCuentaBancariaService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oCuentaBancariaService->remove($json)];
+                        $aResult = [$oCuentaBancariaService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oCuentaBancariaService->getCount($json)];
+                        $aResult = [$oCuentaBancariaService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oCuentaBancariaService->getPage($json)];
+                        $aResult = [$oCuentaBancariaService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:
@@ -146,25 +146,25 @@ class MappingHelper {
                 break;
             case "cuentaasociada":
                 $oCuentaAsociadaService = new CuentaAsociadaService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oCuentaAsociadaService->get($json)];
+                        $aResult = [$oCuentaAsociadaService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oCuentaAsociadaService->set($json)];
+                        $aResult = [$oCuentaAsociadaService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oCuentaAsociadaService->remove($json)];
+                        $aResult = [$oCuentaAsociadaService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oCuentaAsociadaService->getCount($json)];
+                        $aResult = [$oCuentaAsociadaService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oCuentaAsociadaService->getPage($json)];
+                        $aResult = [$oCuentaAsociadaService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:
@@ -175,25 +175,25 @@ class MappingHelper {
                 break;
             case "categoriamovimiento":
                 $oCategoriaMovimientoService = new CategoriaMovimientoService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oCategoriaMovimientoService->get($json)];
+                        $aResult = [$oCategoriaMovimientoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oCategoriaMovimientoService->set($json)];
+                        $aResult = [$oCategoriaMovimientoService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oCategoriaMovimientoService->remove($json)];
+                        $aResult = [$oCategoriaMovimientoService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oCategoriaMovimientoService->getCount($json)];
+                        $aResult = [$oCategoriaMovimientoService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oCategoriaMovimientoService->getPage($json)];
+                        $aResult = [$oCategoriaMovimientoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:
@@ -204,25 +204,25 @@ class MappingHelper {
                 break;
             case "banco":
                 $oBancoService = new BancoService();
-                switch($json->op) {
+                switch($json['op']) {
                     case "get":
-                        $aResult = [$oBancoService->get($json)];
+                        $aResult = [$oBancoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "set":
-                        $aResult = [$oBancoService->set($json)];
+                        $aResult = [$oBancoService->set($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "remove":
-                        $aResult = [$oBancoService->remove($json)];
+                        $aResult = [$oBancoService->remove($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getCount":
-                        $aResult = [$oBancoService->getCount($json)];
+                        $aResult = [$oBancoService->getCount($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "getPage":
-                        $aResult = [$oBancoService->getPage($json)];
+                        $aResult = [$oBancoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
                         break;                    
                     default:

@@ -7,8 +7,8 @@
 
 interface DaoViewInterface {
     
-    public function getCount($data);
+    public function getCount($array);
     
-    public function getPage($data);
+    public function getPage($array);
     
 }

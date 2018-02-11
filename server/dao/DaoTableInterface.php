@@ -7,10 +7,10 @@
 
 interface DaoTableInterface {
     
-    public function get($bean);
+    public function get($array);
     
-    public function set($bean);
+    public function set($array);
     
-    public function remove($id);
+    public function remove($array);
     
 }

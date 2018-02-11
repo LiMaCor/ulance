@@ -26,12 +26,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     
     // MÉTODOS
 
-    public function get($bean) {
+    public function get($array) {
         if ($this->conexion) {
             try {
                 $resultSet = NULL;
                 $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $bean->id);
+                $preparedStatement->bind_param('si', $this->tabla, $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
@@ -62,7 +62,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $oBean;
     }
     
-    public function set($bean) {
+    public function set($array) {
         if ($this->conexion) {
             $iResult = 0;
             try {
@@ -72,10 +72,10 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $bean->dni, 
-                            $bean->nombre, $bean->primerapellido, 
-                            $bean->segundoapellido, $bean->login, 
-                            $bean->pass, $bean->email, $bean->tipousuario_id);
+                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $array['dni'], 
+                            $array['nombre'], $array['primerapellido'], 
+                            $array['segundoapellido'], $array['login'], 
+                            $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();                    
                 } else {
@@ -84,10 +84,10 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "dni=?, nombre=?, primerapellido=?, " . 
                             "segundoapellido=?, login=?, pass=?, email=?, " . 
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $bean->dni, 
-                            $bean->nombre, $bean->primerapellido, $bean->segundoapellido, 
-                            $bean->login, $bean->pass, $bean->email, 
-                            $bean->tipousuario_id);
+                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $array['dni'], 
+                            $array['nombre'], $array['primerapellido'], $array['segundoapellido'], 
+                            $array['login'], $array['pass'], $array['email'], 
+                            $array['tipousuario_id']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                 }
@@ -115,7 +115,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             $iResult = 0;
             try {
                 $preparedStatement = $this->conexion->prepare("DELETE FROM ? WHERE id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $array->id);
+                $preparedStatement->bind_param('si', $this->tabla, $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
@@ -136,22 +136,22 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $iResult;
     }
 
-    public function getCount($data) {
+    public function getCount($array) {
         
     }
 
-    public function getPage($data) {
+    public function getPage($array) {
         
     }
     
-    public function getFromLoginAndPass($bean) {
+    public function getFromLoginAndPass($array) {
         if ($this->conexion) {
             try {
                 $resultSet = NULL;
                 $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 " . 
                         "AND login=? AND pass=?");
-                $preparedStatement->bind_param('sss', $this->tabla, $bean->login, 
-                        $bean->pass);
+                $preparedStatement->bind_param('sss', $this->tabla, $array['login'], 
+                        $array['pass']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 if ($preparedStatement->num_rows > 0) {
