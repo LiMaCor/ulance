@@ -43,10 +43,10 @@
                 $("#login").click(function () {
                     valores = $("#access").serializeObject();
                     valores.password = forge_sha256($("#password").val());
-                    datos = {json: JSON.stringify(valores)};
+                    datos = {ob: "usuario", op: "login", json: JSON.stringify(valores)};
                     $.ajax({
-                        type: "GET",
-                        url: "http://localhost/ulance/server/controller.php?ob=usuario&op=login",
+                        type: "POST",
+                        url: "http://localhost/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
                         success: function (response) {
