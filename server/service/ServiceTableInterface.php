@@ -7,10 +7,10 @@
 
 interface ServiceTableInterface {
     
-    public function get();
+    public function get($json);
     
-    public function set();
+    public function set($json);
     
-    public function remove();
+    public function remove($json);
     
 }

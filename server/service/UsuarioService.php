@@ -33,7 +33,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
 
-    public function get() {
+    public function get($json) {
         if ($this->checkPermission("get")) {
             $id = $_POST['id'];
             $connection = new ConnectionHelper();
@@ -53,7 +53,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
 
-    public function set() {
+    public function set($json) {
         if ($this->checkPermission("set")) {
             $connection = new ConnectionHelper();
             $iResult = NULL;
@@ -74,7 +74,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
 
-    public function remove() {
+    public function remove($json) {
         if ($this->checkPermission("remove")) {
             $connection = new ConnectionHelper();
             $iResult = NULL;
@@ -94,15 +94,15 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
 
-    public function getCount() {
+    public function getCount($json) {
         
     }
 
-    public function getPage() {
+    public function getPage($json) {
         
     }
 
-    public function login() {
+    public function login($json) {
         $connection = new ConnectionHelper();
         $json = $_POST['json'];
         $aJson = json_decode($json, true);

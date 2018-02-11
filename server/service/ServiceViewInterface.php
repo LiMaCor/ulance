@@ -7,8 +7,8 @@
 
 interface ServiceViewInterface {
     
-    public function getCount();
+    public function getCount($json);
     
-    public function getPage();
+    public function getPage($json);
     
 }
