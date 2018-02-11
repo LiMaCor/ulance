@@ -55,13 +55,15 @@ if (!isset($_SESSION['user'])) {
 $control = new MappingHelper();
 
 $json = json_decode($_POST['json'], true);
-$ob = $_POST['ob'];
-$op = $_POST['op'];
+$ob = json_decode($_POST['ob'], true);
+$op = json_decode($_POST['ob'], true);
 
 // DEBUGG
 
-//print $json->ob;
+//print $json['json'];
+//print $ob;
+//print $op;
 
 $resultado = $control->methodToExecute($ob, $op, $json);
 
-return '{\"status\":' + $resultado->code + ', \"json\":' + $resultado->json + '}';
+return '{\"status\":' + $resultado->getCode() + ', \"json\":' + $resultado->getJson() + '}';

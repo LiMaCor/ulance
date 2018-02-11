@@ -102,7 +102,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         $connection = new ConnectionHelper();
         $oBean = new UsuarioBean();
         $oBean->construct($json);
-        if (!($oBean->login) == "" && !($oBean->pass) == "") {
+        if (!($oBean->getLogin()) == "" && !($oBean->getPass()) == "") {
             try {
                 $oDao = new UsuarioDao($connection->getConnection());
                 $oResult = $oDao->getFromLoginAndPass($oBean);
