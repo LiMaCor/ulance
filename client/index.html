@@ -46,11 +46,11 @@
                 $("#sendLogin").click(function () {
                     valores = $("#access").serializeObject();
                     valores.pass = forge_sha256($("#pass").val());
-                    datos = {ob: "usuario", op: "login", json: JSON.stringify(valores)};
+                    datos = {"ob": "usuario", "op": "login", "json": JSON.stringify(valores)};
                     $("#debugg-response").empty().append(datos.json);
                     $.ajax({
                         type: "POST",
-                        url: "http://localhost/ulance/server/controller.php",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
                         data: datos,
                         dataType: "json",
                         success: function (response) {
