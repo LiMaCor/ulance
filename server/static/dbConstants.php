@@ -5,6 +5,6 @@
  */
 
 define("DBUSER", "root");
-define("DBPASS", "admin");
+define("DBPASS", "bitnami");
 define("DBNAME", "ulance");
-define("DBHOST", "192.168.122.26");
+define("DBHOST", "127.0.0.1");

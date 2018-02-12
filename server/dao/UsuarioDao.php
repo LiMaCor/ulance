@@ -13,24 +13,21 @@ require 'dao/DaoViewInterface.php';
 
 class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     
-    // VARIABLES
-    
-    private $tabla = "usuario";
-    private $conexion;
-    
     // CONSTRUCTOR
     
-    public function construct($conexion) {
-        $this->conexion = $conexion;
+    public function construct() {
+
     }
     
     // MÉTODOS
 
     public function get($array) {
-        if ($this->conexion) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
             try {
                 $resultSet = NULL;
-                $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
+                $sqlMaker = $connection->getConnection();
+                $preparedStatement = $sqlMaker->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
                 $preparedStatement->bind_param('si', $this->tabla, $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -56,19 +53,19 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     $preparedStatement->close();
                 }
             }
-        } else {
-            throw new Exception();
         }
         return $oBean;
     }
     
     public function set($array) {
-        if ($this->conexion) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
             $iResult = 0;
             try {
                 $insert = TRUE;
+                $sqlMaker = $connection->getConnection();
                 if ($bean->id == NULL) {
-                    $preparedStatement = $this->conexion->prepare("INSERT INTO ?" . 
+                    $preparedStatement = $sqlMaker->prepare("INSERT INTO ?" . 
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
@@ -80,7 +77,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     $preparedStatement->store_result();                    
                 } else {
                     $insert = FALSE;
-                    $preparedStatement = $this->conexion->prepare("UPDATE ? SET " . 
+                    $preparedStatement = $sqlMaker->prepare("UPDATE ? SET " . 
                             "dni=?, nombre=?, primerapellido=?, " . 
                             "segundoapellido=?, login=?, pass=?, email=?, " . 
                             "tipousuario_id =? WHERE id=?");
@@ -95,7 +92,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     throw new Exception();
                 }
                 if ($insert) {
-                    $iResult = $this->conexion->insert_id;
+                    $iResult = $sqlMaker->insert_id;
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -111,10 +108,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     }
     
     public function remove($array) {
-        if ($this->conexion) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
             $iResult = 0;
             try {
-                $preparedStatement = $this->conexion->prepare("DELETE FROM ? WHERE id=?");
+                $sqlMaker = $connection->getConnection();
+                $preparedStatement = $sqlMaker->prepare("DELETE FROM ? WHERE id=?");
                 $preparedStatement->bind_param('si', $this->tabla, $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -145,12 +144,14 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     }
     
     public function getFromLoginAndPass($array) {
-        if ($this->conexion) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
             try {
+                $sqlMaker = $connection->getConnection();
                 $resultSet = NULL;
-                $preparedStatement = $this->conexion->prepare("SELECT * FROM ? WHERE 1=1 " . 
-                        "AND login=? AND pass=?");
-                $preparedStatement->bind_param('sss', $this->tabla, $array['login'], 
+                $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario WHERE 1=1 " . 
+                        "AND login=" . "'?'" . " AND pass=" . "'?'");
+                $preparedStatement->bind_param('ss', $array['login'], 
                         $array['pass']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();

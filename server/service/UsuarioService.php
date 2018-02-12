@@ -36,11 +36,10 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     public function get($json) {
         if ($this->checkPermission("get")) {
             $id = $json['id'];
-            $connection = new ConnectionHelper();
             try {
                 $oBean = new UsuarioBean();
                 $oBean->setId($id);
-                $oDao = new UsuarioDao($connection->getConnection());
+                $oDao = new UsuarioDao();
                 $oBean = $oDao->get($oBean);
                 $toJson = json_encode($oBean);
                 $oReplyBean = new ReplyBean(200, $toJson);
@@ -55,11 +54,10 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function set($json) {
         if ($this->checkPermission("set")) {
-            $connection = new ConnectionHelper();
             $iResult = NULL;
             try {
                 $oBean = new UsuarioBean($json); // Actualizado: los POJO's se crean con arrays asociativos
-                $oDao = new UsuarioDao($connection->getConnection());
+                $oDao = new UsuarioDao();
                 $iResult = $oDao->set($oBean);
                 $aResult = [200, $iResult];
             } catch (Exception $ex) {
@@ -74,10 +72,9 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function remove($json) {
         if ($this->checkPermission("remove")) {
-            $connection = new ConnectionHelper();
             $iResult = NULL;
             try {
-                $oDao = new UsuarioDao($connection->getConnection());
+                $oDao = new UsuarioDao();
                 $iResult = $oDao->remove($json);
                 $aResult = [200, $iResult];
             } catch (Exception $ex) {
@@ -99,12 +96,11 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function login($json) {
-        $connection = new ConnectionHelper();
         $oBean = new UsuarioBean();
         $oBean->construct($json);
         if (!($oBean->getLogin()) == "" && !($oBean->getPass()) == "") {
             try {
-                $oDao = new UsuarioDao($connection->getConnection());
+                $oDao = new UsuarioDao();
                 $oResult = $oDao->getFromLoginAndPass($oBean);
                 session_start();
                 $_SESSION['user'] = $oResult;

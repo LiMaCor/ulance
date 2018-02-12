@@ -55,8 +55,8 @@ if (!isset($_SESSION['user'])) {
 $control = new MappingHelper();
 
 $json = json_decode($_POST['json'], true);
-$ob = json_decode($_POST['ob'], true);
-$op = json_decode($_POST['ob'], true);
+$ob = $_POST['ob'];
+$op = $_POST['op'];
 
 // DEBUGG
 
