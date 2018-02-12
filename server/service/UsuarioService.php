@@ -108,10 +108,10 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
-            return new ReplyBean($aResult);
+            return $aResult;
         } else {
             $aResult = [401, "Unauthorized operation"];
-            return new ReplyBean($aResult);
+            return $aResult;
         }
     }
 
