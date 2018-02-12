@@ -147,6 +147,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         "AND login=? AND pass=?");
                 $preparedStatement->bind_param('ss', $array->getLogin(), $array->getPass());
                 $preparedStatement->execute();
+                $preparedStatement->store_result();
                 $rows = $preparedStatement->num_rows;
                 if ($rows > 0) {
 
@@ -164,8 +165,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         $aTest = $c;
                     }
                     
-                    $oBean = new UsuarioBean();
-                    $oBean->construct($aTest);
+                    $oBean = json_encode($aTest);
 //                    $bean->id = $resultSet['id'];
 //                    $bean->nombre = $resultSet['nombre'];
 //                    $bean->primerapellido = $resultSet['primerapellido'];

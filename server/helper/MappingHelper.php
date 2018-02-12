@@ -44,7 +44,7 @@ class MappingHelper {
                         $oReplyBean = new ReplyBean($aResult);
                         break;
                     case "login":
-                        $aResult = [$oUsuarioService->login($json)];
+                        $aResult = $oUsuarioService->login($json);
                         $oReplyBean = new ReplyBean();
                         $oReplyBean->construct($aResult);
                         break;

@@ -104,7 +104,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 $oResult = $oDao->getFromLoginAndPass($oBean);
                 session_start();
                 $_SESSION['user'] = $oResult;
-                $aResult = [200, $oResult];
+                $aResult = ["code" => 200, "json" => $oResult];
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
