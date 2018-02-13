@@ -165,7 +165,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         $aTest = $c;
                     }
                     
-                    $oBean = json_encode($aTest);
+                    $oBean = $aTest;
 //                    $bean->id = $resultSet['id'];
 //                    $bean->nombre = $resultSet['nombre'];
 //                    $bean->primerapellido = $resultSet['primerapellido'];
