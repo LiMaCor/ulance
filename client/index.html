@@ -20,9 +20,6 @@
         <div id="loggedUser">
             <h3>Bienvenido <span id="user"></span></h3>
         </div>
-        <div>
-            <span id="debugg-response"></span>
-        </div>
         <script>
             $.fn.serializeObject = function ()
             {
@@ -47,17 +44,20 @@
                     valores = $("#access").serializeObject();
                     valores.pass = forge_sha256($("#pass").val());
                     datos = {"ob": "usuario", "op": "login", "json": JSON.stringify(valores)};
-                    $("#debugg-response").empty().append(datos.json);
                     $.ajax({
                         type: "POST",
                         url: "http://127.0.0.1/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
                         data: datos,
                         dataType: "json",
-                        success: function (response) {
-                            $("#user").empty().append(response.json.login);
-                            $("#loggedUser").show();
+                        success: function (data) {
+                            if (data.status == 200) {
+                                $("#user").empty().append(data.json.login);
+                                $("#loggedUser").show();
+                            } else {
+                                alert("Error")
+                            }
                         },
-                        error: function (error) {
+                        error: function (data) {
                             alert("Error");
                         }
                     });
