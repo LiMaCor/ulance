@@ -58,4 +58,4 @@ $control = new MappingHelper();
 //print $op;
 
 $resultado = $control->methodToExecute($ob, $op, $json);
-echo json_encode(array("status" => $resultado->getCode(), "json" => $resultado->getJson()));
+echo json_encode(array("status" => $resultado['code'], "json" => $resultado['json']));

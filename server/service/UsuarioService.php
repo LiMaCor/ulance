@@ -96,12 +96,10 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function login($json) {
-        $oBean = new UsuarioBean();
-        $oBean->construct($json);
-        if (!($oBean->getLogin()) == "" && !($oBean->getPass()) == "") {
+        if (!($json['login']) == "" && !($json['pass']) == "") {
             try {
                 $oDao = new UsuarioDao();
-                $oResult = $oDao->getFromLoginAndPass($oBean);
+                $oResult = $oDao->getFromLoginAndPass($json);
                 session_start();
                 $_SESSION['user'] = $oResult;
                 $aResult = ["code" => 200, "json" => $oResult];
@@ -110,7 +108,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             }
             return $aResult;
         } else {
-            $aResult = [401, "Unauthorized operation"];
+            $aResult = ["code" => 401, "json" => "Unauthorized operation"];
             return $aResult;
         }
     }

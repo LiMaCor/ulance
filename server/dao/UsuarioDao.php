@@ -26,22 +26,24 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             try {
                 $resultSet = NULL;
                 $sqlMaker = $connection->getConnection();
-                $preparedStatement = $sqlMaker->prepare("SELECT * FROM ? WHERE 1=1 AND id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $array['id']);
+                $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario WHERE 1=1 AND id=?");
+                $preparedStatement->bind_param('i', $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
-                if ($preparedStatement->num_rows > 0) {
-                    $resultSet = mysqli_fetch_array($preparedStatement, MYSQLI_ASSOC);
-                    $oBean = new UsuarioBean();
-                    $oBean->construct($resultSet);
-//                    $bean->id = $resultSet['id'];
-//                    $bean->nombre = $resultSet['nombre'];
-//                    $bean->primerapellido = $resultSet['primerapellido'];
-//                    $bean->segundoapellido = $resultSet['segundoapellido'];
-//                    $bean->login = $resultSet['login'];
-//                    $bean->pass = $resultSet['pass'];
-//                    $bean->email = $resultSet['email'];
-//                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
+                $rows = $preparedStatement->num_rows;
+                if ($rows > 0) {                    
+                    $meta = $preparedStatement->result_metadata();
+                    while ($field = $meta->fetch_field()) {
+                        $params[] = &$row[$field->name];
+                    }
+                    call_user_func_array(array($preparedStatement, 'bind_result'), $params);
+                    while ($preparedStatement->fetch()) {
+                        foreach ($row as $key => $val) {
+                            $c[$key] = $val;
+                        }
+                        $aTest = $c;
+                    }
+                    $oBean = $aTest;
                 } else {
                     throw new Exception();
                 }
@@ -141,11 +143,10 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($connection->checkDBConnection()) {
             try {
                 $sqlMaker = $connection->getConnection();
-                $resultSet = NULL;
                 $aTest = NULL;
                 $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario WHERE 1=1 " .
                         "AND login=? AND pass=?");
-                $preparedStatement->bind_param('ss', $array->getLogin(), $array->getPass());
+                $preparedStatement->bind_param('ss', $array['login'], $array['pass']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 $rows = $preparedStatement->num_rows;
@@ -165,15 +166,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         $aTest = $c;
                     }
                     
-                    $oBean = $aTest;
-//                    $bean->id = $resultSet['id'];
-//                    $bean->nombre = $resultSet['nombre'];
-//                    $bean->primerapellido = $resultSet['primerapellido'];
-//                    $bean->segundoapellido = $resultSet['segundoapellido'];
-//                    $bean->login = $resultSet['login'];
-//                    $bean->pass = $resultSet['pass'];
-//                    $bean->email = $resultSet['email'];
-//                    $bean->tipousuario_id = $resultSet['tipousuario_id'];
+                    $aResponse = $aTest;
                 } else {
                     throw new Exception();
                 }
@@ -187,7 +180,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $oBean;
+        return $aResponse;
     }
 
 }

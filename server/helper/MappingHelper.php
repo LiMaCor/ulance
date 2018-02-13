@@ -18,7 +18,7 @@ require 'service/UsuarioService.php';
 class MappingHelper {
     
     public static function methodToExecute($ob, $op, $json) {
-        $oReplyBean = NULL;
+        $aResult = NULL;
         switch($ob) {
             case "usuario":
                 $oUsuarioService = new UsuarioService();
@@ -45,8 +45,6 @@ class MappingHelper {
                         break;
                     case "login":
                         $aResult = $oUsuarioService->login($json);
-                        $oReplyBean = new ReplyBean();
-                        $oReplyBean->construct($aResult);
                         break;
                     case "logout":
                         $aResult = [$oUsuarioService->logout()];
@@ -237,7 +235,7 @@ class MappingHelper {
                         $oReplyBean = new ReplyBean($aResult);
                         break;
         }
-        return $oReplyBean;
+        return $aResult;
     }
     
 }
