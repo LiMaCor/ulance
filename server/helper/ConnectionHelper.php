@@ -6,9 +6,6 @@
  * @author PixelZer0
  */
 
-// CLASES REQUERIDAS
-
-require 'static/dbConstants.php';
 
 class ConnectionHelper {
 

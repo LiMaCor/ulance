@@ -92,16 +92,17 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         if (!($json['login']) == "" && !($json['pass']) == "") {
             try {
                 $oDao = new UsuarioDao();
+                $toJson = new JsonHelper();
                 $oResult = $oDao->getFromLoginAndPass($json);
                 session_start();
                 $_SESSION['user'] = $oResult;
-                $aResult = ["code" => 200, "json" => $oResult];
+                $aResult = $toJson->toJsonFormat($oResult);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
             return $aResult;
         } else {
-            $aResult = ["code" => 401, "json" => "Unauthorized operation"];
+            $aResult = $toJson->toJsonBadResponse();
             return $aResult;
         }
     }
