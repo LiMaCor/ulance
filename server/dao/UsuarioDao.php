@@ -5,10 +5,7 @@
  *
  * @author PixelZer0
  */
-// CLASES REQUERIDAS
 
-require 'dao/DaoTableInterface.php';
-require 'dao/DaoViewInterface.php';
 
 class UsuarioDao implements DaoTableInterface, DaoViewInterface {
 

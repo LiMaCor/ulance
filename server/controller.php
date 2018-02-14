@@ -1,6 +1,18 @@
 <?php
 
 require 'helper/MappingHelper.php';
+require 'service/UsuarioService.php';
+require 'service/TipoUsuarioService.php';
+require 'service/MovimientoService.php';
+require 'service/CuentaBancariaService.php';
+require 'service/CuentaAsociadaService.php';
+require 'service/CategoriaMovimientoService.php';
+require 'service/BancoService.php';
+require 'service/ServiceTableInterface.php';
+require 'service/ServiceViewInterface.php';
+require 'dao/UsuarioDao.php';
+require 'dao/DaoTableInterface.php';
+require 'dao/DaoViewInterface.php';
 require 'helper/ConnectionHelper.php';
 
 /**
