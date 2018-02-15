@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once 'helper/JsonHelper.php';
 require_once 'static/dbConstants.php';
 require_once 'helper/ConnectionHelper.php';
@@ -11,7 +13,6 @@ require_once 'service/ServiceViewInterface.php';
 require_once 'service/UsuarioService.php';
 require_once 'helper/MappingHelper.php';
 
-session_start();
 
 /**
  * Controlador de la aplicación
