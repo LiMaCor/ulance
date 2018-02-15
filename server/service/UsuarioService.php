@@ -78,7 +78,20 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function getCount($json) {
-        
+        if ($this->checkPermission("remove")) {
+            try {
+                $toJson = new JsonHelper();
+                $oDao = new UsuarioDao();
+                $aJson = $oDao->getCount($json);
+                $aResult = $toJson->toJsonFormat($aJson);
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            }
+            return $aResult;
+        } else {
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
+        }
     }
 
     public function getPage($json) {
