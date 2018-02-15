@@ -9,14 +9,7 @@
 class JsonHelper {
     
     public static function toJsonFormat($array) {
-        $aTemplate = ["code", "json"];
-        $aResponse = [200, $array];
-        foreach ($aResponse as $aTemplate => $value) {
-            $i = 0;
-            $aTemplate[$i] = $value;
-            $i++;
-        }
-        $aJson = $aTemplate;
+        $aJson = ["code" => 200, "json" => $array];
         return $aJson;
     }
     
@@ -24,5 +17,12 @@ class JsonHelper {
         $aJson = ["code" => 401, "json" => "Unauthorized operation"];
         return $aJson;
     }
+    
+//    Por valorar
+//      
+//    public static function toJsonErrorResponse() {
+//        $aJson = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
+//        return $aJson;
+//    }
     
 }
