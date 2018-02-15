@@ -22,6 +22,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($connection->checkDBConnection()) {
             try {
                 $sqlMaker = $connection->getConnection();
+                $aTest = NULL;
                 $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario WHERE 1=1 AND id=?");
                 $preparedStatement->bind_param('i', $array['id']);
                 $preparedStatement->execute();
@@ -39,7 +40,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         }
                         $aTest = $c;
                     }
-                    $aResponse = $aTest;
+                    $aResult = $aTest;
                 } else {
                     throw new Exception();
                 }
@@ -51,7 +52,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 }
             }
         }
-        return $aResponse;
+        return $aResult;
     }
 
     public function set($array) {
@@ -61,11 +62,11 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 $insert = TRUE;
                 $sqlMaker = $connection->getConnection();
                 if ($array['id'] == NULL) {
-                    $preparedStatement = $sqlMaker->prepare("INSERT INTO ?" .
+                    $preparedStatement = $sqlMaker->prepare("INSERT INTO usuario" .
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('ssssssssi', "usuario", $array['dni'], $array['nombre'],
+                    $preparedStatement->bind_param('sssssssi', $array['dni'], $array['nombre'],
                             $array['primerapellido'], $array['segundoapellido'], $array['login'],
                             $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
@@ -76,7 +77,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "dni=?, nombre=?, primerapellido=?, " .
                             "segundoapellido=?, login=?, pass=?, email=?, " .
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('ssssssssii', "usuario", $array['dni'], $array['nombre'],
+                    $preparedStatement->bind_param('sssssssii', $array['dni'], $array['nombre'],
                             $array['primerapellido'], $array['segundoapellido'], $array['login'],
                             $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
@@ -108,8 +109,8 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         if ($connection->checkDBConnection()) {
             try {
                 $sqlMaker = $connection->getConnection();
-                $preparedStatement = $sqlMaker->prepare("DELETE FROM ? WHERE id=?");
-                $preparedStatement->bind_param('si', "usuario", $array['id']);
+                $preparedStatement = $sqlMaker->prepare("DELETE FROM usuario WHERE id=?");
+                $preparedStatement->bind_param('i', $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
                 $rows = $preparedStatement->num_rows;
@@ -132,7 +133,27 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     }
 
     public function getCount($array) {
-        
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
+            try {
+                $sqlMaker = $connection->getConnection();
+                $statement = $sqlMaker->query("SELECT COUNT(*) FROM usuario WHERE 1=1");
+                $statement->store_result();
+                $rows = $statement->num_rows;
+                if ($rows > 0) {
+                    $aResult = $statement->fetch_assoc();
+                }
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            } finally {
+                if ($preparedStatement !== NULL) {
+                    $preparedStatement->close();
+                }
+            }
+        } else {
+            throw new Exception();
+        }
+        return $aResult;
     }
 
     public function getPage($array) {
