@@ -1,21 +1,17 @@
 <?php
 
-require 'helper/MappingHelper.php';
-require 'service/ServiceTableInterface.php';
-require 'service/ServiceViewInterface.php';
-require 'service/UsuarioService.php';
-//require 'service/TipoUsuarioService.php';
-//require 'service/MovimientoService.php';
-//require 'service/CuentaBancariaService.php';
-//require 'service/CuentaAsociadaService.php';
-//require 'service/CategoriaMovimientoService.php';
-//require 'service/BancoService.php';
-require 'dao/DaoTableInterface.php';
-require 'dao/DaoViewInterface.php';
-require 'dao/UsuarioDao.php';
-require 'static/dbConstants.php';
-require 'helper/ConnectionHelper.php';
-require 'helper/JsonHelper.php';
+require_once 'helper/JsonHelper.php';
+require_once 'static/dbConstants.php';
+require_once 'helper/ConnectionHelper.php';
+require_once 'dao/DaoTableInterface.php';
+require_once 'dao/DaoViewInterface.php';
+require_once 'dao/UsuarioDao.php';
+require_once 'service/ServiceTableInterface.php';
+require_once 'service/ServiceViewInterface.php';
+require_once 'service/UsuarioService.php';
+require_once 'helper/MappingHelper.php';
+
+session_start();
 
 /**
  * Controlador de la aplicación
