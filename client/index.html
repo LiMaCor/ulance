@@ -20,6 +20,13 @@
         <div id="loggedUser">
             <h3>Bienvenido <span id="user"></span></h3>
         </div>
+        <form id="userData">
+            <input type="text" id="userId" placeholder="User ID" required autofocus name="id">
+        </form>
+        <button type="submit" id="sendUserId">Get ID</button>
+        <div>
+            <span id="gettedUserData"></span>
+        </div>
         <script>
             $.fn.serializeObject = function ()
             {
@@ -40,28 +47,53 @@
             };
             $(document).ready(function () {
                 $("#loggedUser").hide();
-                $("#sendLogin").click(function () {
+                $("#userData").hide();
+                $("#sendUserId").hide();
+                $("#gettedUserData").hide();
+                $("#sendLogin").click(function() {
                     valores = $("#access").serializeObject();
                     valores.pass = forge_sha256($("#pass").val());
-                    datos = {"ob": "usuario", "op": "login", "json": JSON.stringify(valores)};
+                    datos = {"ob":"usuario", "op":"login", "json":JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
                         url: "http://127.0.0.1/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
                         data: datos,
                         dataType: "json",
-                        success: function (data) {
+                        success: function(data) {
                             if (data.status == 200) {
                                 $("#user").empty().append(data.json.login);
                                 $("#loggedUser").show();
+                                $("#userData").show();
+                                $("#sendUserId").show();
                             } else {
-                                alert("Error")
+                                alert("Error");
                             }
                         },
-                        error: function (data) {
+                        error: function(data) {
                             alert("Error");
                         }
                     });
-                })
+                });
+                $("#sendUserId").click(function() {
+                    valores = $("#userData").serializeObject();
+                    datos = {"ob":"usuario", "op":"get", "json":JSON.stringify(valores)};
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
+                        data: datos,
+                        dataType: "json",
+                        success: function(data) {
+                            if (data.status == 200) {
+                                $("#gettedUserData").empty().append(data.json).show();
+                            } else {
+                                alert("Error");
+                            }
+                        },
+                        error: function(data) {
+                            alert("Error");
+                        }
+                    });
+                });
             });
         </script>
     </body>
