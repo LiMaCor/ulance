@@ -21,7 +21,6 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
             try {
-                $resultSet = NULL;
                 $sqlMaker = $connection->getConnection();
                 $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario WHERE 1=1 AND id=?");
                 $preparedStatement->bind_param('i', $array['id']);
@@ -58,16 +57,17 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
     public function set($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
-            $iResult = 0;
             try {
                 $insert = TRUE;
                 $sqlMaker = $connection->getConnection();
-                if ($bean->id == NULL) {
+                if ($array['id'] == NULL) {
                     $preparedStatement = $sqlMaker->prepare("INSERT INTO ?" .
                             "(dni, nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('ssssssssi', $this->tabla, $array['dni'], $array['nombre'], $array['primerapellido'], $array['segundoapellido'], $array['login'], $array['pass'], $array['email'], $array['tipousuario_id']);
+                    $preparedStatement->bind_param('ssssssssi', "usuario", $array['dni'], $array['nombre'],
+                            $array['primerapellido'], $array['segundoapellido'], $array['login'],
+                            $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                 } else {
@@ -76,15 +76,19 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                             "dni=?, nombre=?, primerapellido=?, " .
                             "segundoapellido=?, login=?, pass=?, email=?, " .
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('ssssssssii', $this->tabla, $array['dni'], $array['nombre'], $array['primerapellido'], $array['segundoapellido'], $array['login'], $array['pass'], $array['email'], $array['tipousuario_id']);
+                    $preparedStatement->bind_param('ssssssssii', "usuario", $array['dni'], $array['nombre'],
+                            $array['primerapellido'], $array['segundoapellido'], $array['login'],
+                            $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
+                    $rows = $preparedStatement->num_rows;
                 }
-                if ($preparedStatement->num_rows < 0) {
+                if ($rows < 0) {
                     throw new Exception();
                 }
                 if ($insert) {
                     $iResult = $sqlMaker->insert_id;
+                    $aResult = ["id" => $iResult];
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -96,21 +100,21 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $iResult;
+        return $aResult;
     }
 
     public function remove($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
-            $iResult = 0;
             try {
                 $sqlMaker = $connection->getConnection();
                 $preparedStatement = $sqlMaker->prepare("DELETE FROM ? WHERE id=?");
-                $preparedStatement->bind_param('si', $this->tabla, $array['id']);
+                $preparedStatement->bind_param('si', "usuario", $array['id']);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
-                if ($preparedStatement->num_rows > 0) {
-                    $iResult = $preparedStatement->num_rows;
+                $rows = $preparedStatement->num_rows;
+                if ($rows > 0) {
+                    $aResult = ["id" => $array['id']];
                 } else {
                     throw new Exception();
                 }
@@ -124,7 +128,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $iResult;
+        return $aResult;
     }
 
     public function getCount($array) {
@@ -163,7 +167,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         $aTest = $c;
                     }
                     
-                    $aResponse = $aTest;
+                    $aResult = $aTest;
                 } else {
                     throw new Exception();
                 }
@@ -177,7 +181,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $aResponse;
+        return $aResult;
     }
 
 }
