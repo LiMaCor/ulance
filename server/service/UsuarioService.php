@@ -28,20 +28,18 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function get($json) {
         if ($this->checkPermission("get")) {
-            $id = $json['id'];
             try {
-                $oBean = new UsuarioBean();
-                $oBean->setId($id);
+                $toJson = new JsonHelper();
                 $oDao = new UsuarioDao();
-                $oBean = $oDao->get($oBean);
-                $toJson = json_encode($oBean);
-                $oReplyBean = new ReplyBean(200, $toJson);
+                $aJson = $oDao->get($json);
+                $aResult = $toJson->toJsonFormat($aJson);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
-            return $oReplyBean;
+            return $aResult;
         } else {
-            return new ReplyBean(401, "Unauthorized operation");
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
         }
     }
 
@@ -94,7 +92,6 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 $oDao = new UsuarioDao();
                 $toJson = new JsonHelper();
                 $oResult = $oDao->getFromLoginAndPass($json);
-                session_start();
                 $_SESSION['user'] = $oResult;
                 $aResult = $toJson->toJsonFormat($oResult);
             } catch (Exception $ex) {
