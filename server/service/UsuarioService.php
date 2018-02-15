@@ -45,36 +45,35 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     public function set($json) {
         if ($this->checkPermission("set")) {
-            $iResult = NULL;
             try {
-                $oBean = new UsuarioBean($json); // Actualizado: los POJO's se crean con arrays asociativos
                 $oDao = new UsuarioDao();
-                $iResult = $oDao->set($oBean);
-                $aResult = [200, $iResult];
+                $toJson = new JsonHelper();
+                $aJson = $oDao->set($json);
+                $aResult = $toJson->toJsonFormat($aJson);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
-            return new ReplyBean($aResult);
+            return $aResult;
         } else {
-            $aResult = [401, "Unauthorized operation"];
-            return new ReplyBean($aResult);
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
         }
     }
 
     public function remove($json) {
         if ($this->checkPermission("remove")) {
-            $iResult = NULL;
             try {
+                $toJson = new JsonHelper();
                 $oDao = new UsuarioDao();
-                $iResult = $oDao->remove($json);
-                $aResult = [200, $iResult];
+                $aJson = $oDao->remove($json);
+                $aResult = $toJson->toJsonFormat($aJson);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
-            return new ReplyBean($aResult);
+            return $aResult;
         } else {
-            $aResult = [401, "Unauthorized operation"];
-            return new ReplyBean($aResult);
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
         }
     }
 
@@ -107,10 +106,13 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     public function logout() {
         if ($this->checkPermission("logout")) {
             session_destroy();
-            $aResult = [200, "Session is closed"];
-            return new ReplyBean($aResult);
+            $toJson = new JsonHelper();
+            $aResponse = ["Session is closed"];
+            $aResult = $toJson->toJsonFormat($aResponse);
+            return $aResult;
         } else {
-            throw new Exception();
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
         }
     }
 
