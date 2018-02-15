@@ -5,52 +5,43 @@
  *
  * @author PixelZer0
  */
-
-
 class MappingHelper {
-    
-    public static function methodToExecute($ob, $op, $json) {
+
+    public function methodToExecute($ob, $op, $json) {
         $aResult = NULL;
-        switch($ob) {
+        switch ($ob) {
             case "usuario":
                 $oUsuarioService = new UsuarioService();
-                switch($op) {
+                switch ($op) {
                     case "get":
-                        $aResult = [$oUsuarioService->get($json['json'])];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->get($json);
                         break;
                     case "set":
-                        $aResult = [$oUsuarioService->set($json['json'])];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->set($json);
                         break;
                     case "remove":
-                        $aResult = [$oUsuarioService->remove($json['json'])];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->remove($json);
                         break;
                     case "getCount":
-                        $aResult = [$oUsuarioService->getCount($json['json'])];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->getCount($json);
                         break;
                     case "getPage":
-                        $aResult = [$oUsuarioService->getPage($json['json'])];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->getPage($json);
                         break;
                     case "login":
                         $aResult = $oUsuarioService->login($json);
                         break;
                     case "logout":
-                        $aResult = [$oUsuarioService->logout()];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = $oUsuarioService->logout($json);
                         break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "tipousuario":
                 $oTipoUsuarioService = new TipoUsuarioService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oTipoUsuarioService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -70,16 +61,15 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oTipoUsuarioService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "movimiento":
                 $oMovimientoService = new MovimientoService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oMovimientoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -99,16 +89,15 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oMovimientoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "cuentabancaria":
                 $oCuentaBancariaService = new CuentaBancariaService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oCuentaBancariaService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -128,16 +117,15 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oCuentaBancariaService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "cuentaasociada":
                 $oCuentaAsociadaService = new CuentaAsociadaService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oCuentaAsociadaService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -157,16 +145,15 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oCuentaAsociadaService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "categoriamovimiento":
                 $oCategoriaMovimientoService = new CategoriaMovimientoService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oCategoriaMovimientoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -186,16 +173,15 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oCategoriaMovimientoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             case "banco":
                 $oBancoService = new BancoService();
-                switch($op) {
+                switch ($op) {
                     case "get":
                         $aResult = [$oBancoService->get($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
@@ -215,19 +201,17 @@ class MappingHelper {
                     case "getPage":
                         $aResult = [$oBancoService->getPage($json['json'])];
                         $oReplyBean = new ReplyBean($aResult);
-                        break;                    
+                        break;
                     default:
-                        $aResult = [500, "Operation not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
+                        $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
                 }
                 break;
             default:
-                $aResult = [500, "Object not found : Please contact your administrator"];
-                        $oReplyBean = new ReplyBean($aResult);
-                        break;
+                $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
+                break;
         }
         return $aResult;
     }
-    
+
 }
