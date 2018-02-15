@@ -40,7 +40,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         }
                         $aTest = $c;
                     }
-                    $oBean = $aTest;
+                    $aResponse = $aTest;
                 } else {
                     throw new Exception();
                 }
@@ -52,7 +52,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 }
             }
         }
-        return $oBean;
+        return $aResponse;
     }
 
     public function set($array) {
@@ -149,7 +149,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 $rows = $preparedStatement->num_rows;
                 if ($rows > 0) {
 
-                    // [WIP] Crear un array asociativo a partir de una consulta preparada
+                    // Crea un array asociativo a partir de una consulta preparada
 
                     $meta = $preparedStatement->result_metadata();
                     while ($field = $meta->fetch_field()) {
