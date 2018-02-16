@@ -24,7 +24,7 @@
             <input type="text" id="userId" placeholder="User ID" required autofocus name="id">
         </form>
         <button type="submit" id="sendUserId">Get ID</button>
-        <div>
+        <div id="userDataGetted">
             <span id="gettedUserData"></span>
         </div>
         <script>
@@ -49,14 +49,14 @@
                 $("#loggedUser").hide();
                 $("#userData").hide();
                 $("#sendUserId").hide();
-                $("#gettedUserData").hide();
+                $("#userDataGetted").hide();
                 $("#sendLogin").click(function() {
                     valores = $("#access").serializeObject();
                     valores.pass = forge_sha256($("#pass").val());
                     datos = {"ob":"usuario", "op":"login", "json":JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
                         success: function(data) {
@@ -79,12 +79,17 @@
                     datos = {"ob":"usuario", "op":"get", "json":JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1/ulance/server/controller.php?XDEBUG_SESSION_START=netbeans-xdebug",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
                         success: function(data) {
                             if (data.status == 200) {
-                                $("#gettedUserData").empty().append(data.json).show();
+                                $.each(data, function() {
+                                    $.each(this, function(i,j) {
+                                        $("#userDataGetted").append("<br>" + j + "</br>");
+                                    });
+                                });
+                                $("#userDataGetted").show();
                             } else {
                                 alert("Error");
                             }
