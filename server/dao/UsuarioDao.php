@@ -40,6 +40,8 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                         }
                         $aTest = $c;
                     }
+                    $keyToRemove = array_search("pass", $aTest);
+                    unset($aTest[$keyToRemove]);
                     $aResult = $aTest;
                 } else {
                     throw new Exception();
