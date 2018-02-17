@@ -56,7 +56,7 @@
                     datos = {"ob":"usuario", "op":"login", "json":JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
+                        url: "http://127.0.0.1/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
                         success: function(data) {
@@ -79,7 +79,7 @@
                     datos = {"ob":"usuario", "op":"get", "json":JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
+                        url: "http://127.0.0.1/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
                         success: function(data) {
