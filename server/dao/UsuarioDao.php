@@ -134,16 +134,59 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
-    public function getCount($array) {
+    public function getCount() {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
             try {
                 $sqlMaker = $connection->getConnection();
-                $statement = $sqlMaker->query("SELECT COUNT(*) FROM usuario WHERE 1=1");
-                $statement->store_result();
+                $statement = $sqlMaker->query("SELECT COUNT(*) as rows FROM usuario WHERE 1=1");
                 $rows = $statement->num_rows;
                 if ($rows > 0) {
                     $aResult = $statement->fetch_assoc();
+                }
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            } finally {
+                if ($statement !== NULL) {
+                    $statement->close();
+                }
+            }
+        } else {
+            throw new Exception();
+        }
+        return $aResult;
+    }
+
+    public function getPage($array) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
+            try {
+                $aResponse = [];
+                $sqlHelper = new SQLHelper();
+                $total = $this->getCount();
+                $sqlMaker = $connection->getConnection();
+                $sqlLimit = $sqlHelper->buildSqlLimit($total, $array['np'], $array['rpp']);
+                $preparedStatement = $sqlMaker->prepare("SELECT * FROM usuario " . 
+                        "WHERE 1=?" . $sqlLimit);
+                $preparedStatement->bind_param('i', $a = 1);
+                $preparedStatement->execute();
+                $preparedStatement->store_result();
+                $rows = $preparedStatement->num_rows;
+                if ($rows > 0) {
+                    $meta = $preparedStatement->result_metadata();
+                    while ($field = $meta->fetch_field()) {
+                        $params[] = &$row[$field->name];
+                    }
+                    call_user_func_array(array($preparedStatement, 'bind_result'), $params);
+                    while ($preparedStatement->fetch()) {
+                        foreach ($row as $key => $val) {
+                            $c[$key] = $val;
+                        }
+                        $aTest = $c;
+                        array_push($aResponse, $aTest);
+                    }
+                } else {
+                    throw new Exception();
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -155,11 +198,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         } else {
             throw new Exception();
         }
-        return $aResult;
-    }
-
-    public function getPage($array) {
-        
+        return $aResponse;
     }
 
     public function getFromLoginAndPass($array) {
