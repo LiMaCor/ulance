@@ -23,7 +23,7 @@ class MappingHelper {
                         $aResult = $oUsuarioService->remove($json);
                         break;
                     case "getCount":
-                        $aResult = $oUsuarioService->getCount($json);
+                        $aResult = $oUsuarioService->getCount();
                         break;
                     case "getPage":
                         $aResult = $oUsuarioService->getPage($json);
