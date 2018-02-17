@@ -17,17 +17,17 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     // MÉTODOS
 
-    private function checkPermission($metodo) {
-        $userSession = $_SESSION['user'];
-        if (isset($userSession)) {
-            return TRUE;
-        } else {
-            return FALSE;
-        }
-    }
+//    private function checkPermission($metodo) {
+//        $userSession = $_SESSION['user'];
+//        if (isset($userSession)) {
+//            return TRUE;
+//        } else {
+//            return FALSE;
+//        }
+//    }
 
     public function get($json) {
-        if ($this->checkPermission("get")) {
+        //if ($this->checkPermission("get")) {
             try {
                 $toJson = new JsonHelper();
                 $oDao = new UsuarioDao();
@@ -37,14 +37,14 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 throw new Exception($ex->getMessage());
             }
             return $aResult;
-        } else {
-            $aResult = $toJson->toJsonBadResponse();
-            return $aResult;
-        }
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
     public function set($json) {
-        if ($this->checkPermission("set")) {
+//        if ($this->checkPermission("set")) {
             try {
                 $oDao = new UsuarioDao();
                 $toJson = new JsonHelper();
@@ -54,14 +54,14 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 throw new Exception($ex->getMessage());
             }
             return $aResult;
-        } else {
-            $aResult = $toJson->toJsonBadResponse();
-            return $aResult;
-        }
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
     public function remove($json) {
-        if ($this->checkPermission("remove")) {
+//        if ($this->checkPermission("remove")) {
             try {
                 $toJson = new JsonHelper();
                 $oDao = new UsuarioDao();
@@ -71,31 +71,44 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 throw new Exception($ex->getMessage());
             }
             return $aResult;
-        } else {
-            $aResult = $toJson->toJsonBadResponse();
-            return $aResult;
-        }
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
-    public function getCount($json) {
-        if ($this->checkPermission("remove")) {
+    public function getCount() {
+//        if ($this->checkPermission("remove")) {
             try {
                 $toJson = new JsonHelper();
                 $oDao = new UsuarioDao();
-                $aJson = $oDao->getCount($json);
+                $aJson = $oDao->getCount();
                 $aResult = $toJson->toJsonFormat($aJson);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
             }
             return $aResult;
-        } else {
-            $aResult = $toJson->toJsonBadResponse();
-            return $aResult;
-        }
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
     public function getPage($json) {
-        
+//        if ($this->checkPermission("getPage")) {
+            try {
+                $toJson = new JsonHelper();
+                $oDao = new UsuarioDao();
+                $aJson = $oDao->getPage($json);
+                $aResult = $toJson->toJsonFormat($aJson);
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            }
+            return $aResult;
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
     public function login($json) {
@@ -117,16 +130,16 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function logout() {
-        if ($this->checkPermission("logout")) {
+//        if ($this->checkPermission("logout")) {
             session_destroy();
             $toJson = new JsonHelper();
             $aResponse = ["Session is closed"];
             $aResult = $toJson->toJsonFormat($aResponse);
             return $aResult;
-        } else {
-            $aResult = $toJson->toJsonBadResponse();
-            return $aResult;
-        }
+//        } else {
+//            $aResult = $toJson->toJsonBadResponse();
+//            return $aResult;
+//        }
     }
 
 }
