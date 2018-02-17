@@ -26,6 +26,16 @@
         <button type="submit" id="sendUserId">Get ID</button>
         <div id="userDataGetted">
             <span id="gettedUserData"></span>
+            <span id="registers"></span>
+        </div>
+        <form id="filters">
+            <input type="text" id="np" placeholder="Number Page" required autofocus name="np">
+            <input type="text" id="rpp" placeholder="Registers Per Page" required autofocus name="rpp">
+        </form>
+        <button type="submit" id="getCount">Get rows</button>
+        <button type="submit" id="getRegisters">Get registers</button>
+        <div id="pagedData">
+            <span id="paginatedData"></span>
         </div>
         <script>
             $.fn.serializeObject = function ()
@@ -48,44 +58,50 @@
             $(document).ready(function () {
                 $("#loggedUser").hide();
                 $("#userData").hide();
+                $("#filters").hide();
                 $("#sendUserId").hide();
+                $("#getCount").show();
                 $("#userDataGetted").hide();
-                $("#sendLogin").click(function() {
+                $("#pagedData").hide();
+                $("#sendLogin").click(function () {
                     valores = $("#access").serializeObject();
                     valores.pass = forge_sha256($("#pass").val());
-                    datos = {"ob":"usuario", "op":"login", "json":JSON.stringify(valores)};
+                    datos = {"ob": "usuario", "op": "login", "json": JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1/ulance/server/controller.php",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
-                        success: function(data) {
+                        success: function (data) {
                             if (data.status == 200) {
                                 $("#user").empty().append(data.json.login);
                                 $("#loggedUser").show();
                                 $("#userData").show();
+                                $("#filters").show();
                                 $("#sendUserId").show();
+                                $("#getCount").show();
+                                $("#pagedData").show();
                             } else {
                                 alert("Error");
                             }
                         },
-                        error: function(data) {
+                        error: function (data) {
                             alert("Error");
                         }
                     });
                 });
-                $("#sendUserId").click(function() {
+                $("#sendUserId").click(function () {
                     valores = $("#userData").serializeObject();
-                    datos = {"ob":"usuario", "op":"get", "json":JSON.stringify(valores)};
+                    datos = {"ob": "usuario", "op": "get", "json": JSON.stringify(valores)};
                     $.ajax({
                         type: "POST",
-                        url: "http://127.0.0.1/ulance/server/controller.php",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
                         data: datos,
                         dataType: "json",
-                        success: function(data) {
+                        success: function (data) {
                             if (data.status == 200) {
-                                $.each(data, function() {
-                                    $.each(this, function(i,j) {
+                                $.each(data, function () {
+                                    $.each(this, function (i, j) {
                                         $("#userDataGetted").append("<br>" + j + "</br>");
                                     });
                                 });
@@ -94,7 +110,57 @@
                                 alert("Error");
                             }
                         },
-                        error: function(data) {
+                        error: function (data) {
+                            alert("Error");
+                        }
+                    });
+                });
+                $("#getCount").click(function () {
+                    datos = {"ob": "usuario", "op": "getCount"};
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
+                        data: datos,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 200) {
+                                $("#registers").empty().append(data.json.rows);
+                                $("#registers").show();
+                            } else {
+                                alert("Error");
+                            }
+                        },
+                        error: function (data) {
+                            alert("Error");
+                        }
+                    });
+                });
+                $("#getRegisters").click(function () {
+                    valores = $("#filters").serializeObject();
+                    datos = {"ob": "usuario", "op": "getPage", "json": JSON.stringify(valores)};
+                    $.ajax({
+                        type: "POST",
+                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
+                        data: datos,
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 200) {
+                                var items = [];
+                                $.each(data, function () {
+                                   $.each(this, function (key, value) {
+                                       items.push(value);
+                                   });
+                                });
+                                $.each(items, function () {
+                                    $.each(this, function (key, value) {
+                                        $("#paginatedData").append("<br>" + value + "</br>");
+                                    });
+                                });
+                            } else {
+                                alert("Error");
+                            }
+                        },
+                        error: function (data) {
                             alert("Error");
                         }
                     });
