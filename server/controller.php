@@ -3,6 +3,7 @@
 session_start();
 
 require_once 'helper/JsonHelper.php';
+require_once 'helper/SQLHelper.php';
 require_once 'static/dbConstants.php';
 require_once 'helper/ConnectionHelper.php';
 require_once 'dao/DaoTableInterface.php';
