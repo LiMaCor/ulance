@@ -1,155 +1,22 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>Login</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <script src="js/system/lib/jquery-3.3.1.min.js" type="text/javascript"></script>
-        <script src="js/system/lib/forge-sha256.min.js" type="text/javascript"></script>
-        <script src="js/system/jQuery/functions.js" type="text/javascript"></script>
-    </head>
-    <body>
-        <form id="access">
-            <input type="text" id="login" placeholder="Username" required autofocus name="login">
-            <input type="password" id="pass" placeholder="Password" required autofocus name="pass">
-        </form>
-        <button type="submit" id="sendLogin">Login</button>
-        <div id="loggedUser">
-            <h3>Bienvenido <span id="user"></span></h3>
-        </div>
-        <form id="userData">
-            <input type="text" id="userId" placeholder="User ID" required autofocus name="id">
-        </form>
-        <button type="submit" id="sendUserId">Get ID</button>
-        <div id="userDataGetted">
-            <span id="gettedUserData"></span>
-            <span id="registers"></span>
-        </div>
-        <form id="filters">
-            <input type="text" id="np" placeholder="Number Page" required autofocus name="np">
-            <input type="text" id="rpp" placeholder="Registers Per Page" required autofocus name="rpp">
-        </form>
-        <button type="submit" id="getCount">Get rows</button>
-        <button type="submit" id="getRegisters">Get registers</button>
-        <button type="button" id="toLogin">Login</button>
-        <div id="pagedData">
-            <span id="paginatedData"></span>
-        </div>
-        <script>
-            $(document).ready(function () {
-                $("#loggedUser").hide();
-                $("#userData").hide();
-                $("#filters").hide();
-                $("#sendUserId").hide();
-                $("#getCount").show();
-                $("#userDataGetted").hide();
-                $("#pagedData").hide();
-                $("#sendLogin").click(function () {
-                    valores = $("#access").serializeObject();
-                    valores.pass = forge_sha256($("#pass").val());
-                    datos = {"ob": "usuario", "op": "login", "json": JSON.stringify(valores)};
-                    $.ajax({
-                        type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
-                        data: datos,
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.status == 200) {
-                                $("#user").empty().append(data.json.login);
-                                $("#loggedUser").show();
-                                $("#userData").show();
-                                $("#filters").show();
-                                $("#sendUserId").show();
-                                $("#getCount").show();
-                                $("#pagedData").show();
-                            } else {
-                                alert("Error");
-                            }
-                        },
-                        error: function (data) {
-                            alert("Error");
-                        }
-                    });
-                });
-                $("#sendUserId").click(function () {
-                    valores = $("#userData").serializeObject();
-                    datos = {"ob": "usuario", "op": "get", "json": JSON.stringify(valores)};
-                    $.ajax({
-                        type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
-                        data: datos,
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.status == 200) {
-                                $.each(data, function () {
-                                    $.each(this, function (i, j) {
-                                        $("#userDataGetted").append("<br>" + j + "</br>");
-                                    });
-                                });
-                                $("#userDataGetted").show();
-                            } else {
-                                alert("Error");
-                            }
-                        },
-                        error: function (data) {
-                            alert("Error");
-                        }
-                    });
-                });
-                $("#getCount").click(function () {
-                    datos = {"ob": "usuario", "op": "getCount"};
-                    $.ajax({
-                        type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
-                        data: datos,
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.status == 200) {
-                                $("#registers").empty().append(data.json.rows);
-                                $("#registers").show();
-                            } else {
-                                alert("Error");
-                            }
-                        },
-                        error: function (data) {
-                            alert("Error");
-                        }
-                    });
-                });
-                $("#getRegisters").click(function () {
-                    valores = $("#filters").serializeObject();
-                    datos = {"ob": "usuario", "op": "getPage", "json": JSON.stringify(valores)};
-                    $.ajax({
-                        type: "POST",
-                        url: "http://127.0.0.1:8080/ulance/server/controller.php",
-                        data: datos,
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.status == 200) {
-                                $("#paginatedData").empty();
-                                var items = [];
-                                $.each(data, function () {
-                                   $.each(this, function (key, value) {
-                                       items.push(value);
-                                   });
-                                });
-                                $.each(items, function () {
-                                    $.each(this, function (key, value) {
-                                        $("#paginatedData").append("<br>" + value + "</br>");
-                                    });
-                                });
-                            } else {
-                                alert("Error");
-                            }
-                        },
-                        error: function (data) {
-                            alert("Error");
-                        }
-                    });
-                });
-                $("#toLogin").click(function () {
-                    location.href = "login.html";
-                })
-            });
-        </script>
-    </body>
+<html ng-app="app">
+
+<head>
+    <title>uLance</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link type="text/css" rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css">
+    <!-- <script src="js/system/lib/jquery-3.3.1.min.js" type="text/javascript"></script> -->
+    <script src="js/system/lib/forge-sha256.min.js" type="text/javascript"></script>
+    <!-- <script src="js/system/jQuery/functions.js" type="text/javascript"></script> -->
+    <script type="text/javascript" src="vendor/angularjs/angular.min.js"></script>
+    <script type="text/javascript" src="vendor/angularjs/angular-route.min.js"></script>
+    <base href="/">
+</head>
+
+<body>
+    <div class="container">
+        <ng-view></ng-view>
+    </div>
+</body>
+
 </html>
