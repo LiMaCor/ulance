@@ -17,14 +17,13 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
 
     // MÉTODOS
 
-//    private function checkPermission($metodo) {
-//        $userSession = $_SESSION['user'];
-//        if (isset($userSession)) {
-//            return TRUE;
-//        } else {
-//            return FALSE;
-//        }
-//    }
+   private function checkPermission($metodo) {
+       if ($_SESSION['user'] == PHP_SESSION_ACTIVE) {
+           return TRUE;
+       } else {
+           return FALSE;
+       }
+   }
 
     public function get($json) {
         //if ($this->checkPermission("get")) {
@@ -117,7 +116,8 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 $oDao = new UsuarioDao();
                 $toJson = new JsonHelper();
                 $oResult = $oDao->getFromLoginAndPass($json);
-                $_SESSION['user'] = $oResult;
+                session_start();
+                $_SESSION['user'] = session_id();
                 $aResult = $toJson->toJsonFormat($oResult);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -130,16 +130,16 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     }
 
     public function logout() {
-//        if ($this->checkPermission("logout")) {
+        if ($this->checkPermission("logout")) {
             session_destroy();
             $toJson = new JsonHelper();
             $aResponse = ["Session is closed"];
             $aResult = $toJson->toJsonFormat($aResponse);
             return $aResult;
-//        } else {
-//            $aResult = $toJson->toJsonBadResponse();
-//            return $aResult;
-//        }
+        } else {
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
+        }
     }
 
 }
