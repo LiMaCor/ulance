@@ -8,8 +8,7 @@ var ulance = angular.module("app", [
     'cuentaBancariaControllers',
     'cuentaAsociadaControllers',
     'categoriaMovimientoControllers',
-    'bancoControllers',
-    'chart.js'
+    'bancoControllers'
 ]);
 
 var moduloUsuario = angular.module("usuarioControllers", []);
