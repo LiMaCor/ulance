@@ -2,6 +2,8 @@
 
 var ulance = angular.module("app", [
     'ngRoute',
+    'sistemaControllers',
+    'serviciosControllers',
     'usuarioControllers',
     'tipoUsuarioControllers',
     'movimientoControllers',
@@ -11,6 +13,8 @@ var ulance = angular.module("app", [
     'bancoControllers'
 ]);
 
+var moduloSistema = angular.module("sistemaControllers", []);
+var moduloServicios = angular.module("serviciosControllers", []);
 var moduloUsuario = angular.module("usuarioControllers", []);
 var moduloTipoUsuario = angular.module("tipoUsuarioControllers", []);
 var moduloMovimiento = angular.module("movimientoControllers", []);
