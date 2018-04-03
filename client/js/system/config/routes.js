@@ -13,11 +13,15 @@ ulance.config(['$routeProvider', function ($routeProvider) {
     })
     .when('/main', {
         templateUrl: 'js/system/shared/main.html',
-        controller: 'HomeController'
+        controller: 'MainController'
     })
     .when('/logout', {
         templateUrl: 'js/system/shared/logout.html',
         controller: 'LogoutController'
+    })
+    .when('/usuario/1/plist/:np?/:rpp?', {
+        templateUrl: 'js/app/usuario/1/plist.html',
+        controller: 'Usuario1PlistController'
     })
     .otherwise({
         redirectTo: '/'
