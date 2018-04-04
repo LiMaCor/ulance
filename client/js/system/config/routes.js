@@ -12,7 +12,7 @@ ulance.config(['$routeProvider', function ($routeProvider) {
         controller: 'LoginController'
     })
     .when('/main', {
-        templateUrl: 'js/system/shared/main.html',
+        templateUrl: 'js/system/shared/main-buenin.html',
         controller: 'MainController'
     })
     .when('/logout', {
