@@ -21,7 +21,14 @@ moduloUsuario.controller('Usuario1PlistController',
                     } else {
                         return false;
                     }
-                }) // por añadir ".then()"
+                }).then(function (response) {
+                    if (response.status == 200) {
+                        // Añadir "$scope" para mostrar los datos en la vista
+                    } else {
+                        return false;
+                    }
+                });
             }
+            getDataFromServer();
         }
     ]);
