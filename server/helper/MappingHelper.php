@@ -28,6 +28,9 @@ class MappingHelper {
                     case "getPage":
                         $aResult = $oUsuarioService->getPage($json);
                         break;
+                    case "getSessionStatus":
+                        $aResult = $oUsuarioService->getSessionStatus($json);
+                        break;
                     case "login":
                         $aResult = $oUsuarioService->login($json);
                         break;
