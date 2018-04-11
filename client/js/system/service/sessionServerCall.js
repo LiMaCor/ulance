@@ -6,10 +6,12 @@ moduloServicios.factory("sessionServerCallService",
                 login: function (username, password) {
                     password = forge_sha256(password);
                     var data = { ob: "usuario", op: "login", json: { login: username, pass: password } };
+                    // return $http.post(constantService.getAppUrl() + "?XDEBUG_SESSION_START", data);
                     return $http({
-                        url: constantService.getAppUrl(),
-                        method: "POST",
-                        params: data
+                        url: constantService.getAppUrl() + "?XDEBUG_SESSION_START",
+                        method: 'GET',
+                        params: data,
+                        headers: {'Content-Type': 'application/x-www-form-urlencoded'}
                     })
                 },
                 logout: function () {
