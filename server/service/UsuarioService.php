@@ -18,7 +18,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
     // MÉTODOS
 
    private function checkPermission($metodo) {
-       if ($_SESSION['user'] == PHP_SESSION_ACTIVE) {
+       if (isset($_SESSION['user'])) {
            return TRUE;
        } else {
            return FALSE;
@@ -135,6 +135,21 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             $toJson = new JsonHelper();
             $aResponse = ["Session is closed"];
             $aResult = $toJson->toJsonFormat($aResponse);
+            return $aResult;
+        } else {
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
+        }
+    }
+
+    public function getSessionStatus() {
+        if ($this->checkPermission("getSessionStatus")) {
+            $estadoSesion = session_status() ;
+            if ($estadoSesion == 2) {
+                $toJson = new JsonHelper();
+                $aResponse = ["Session is active"];
+                $aResult = $toJson->toJsonFormat($aResponse);
+            }
             return $aResult;
         } else {
             $aResult = $toJson->toJsonBadResponse();
