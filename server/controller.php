@@ -56,9 +56,9 @@ jsonHeader();
 
 // VARIABLES
 
-$json = json_decode($_POST['json'], true);
-$ob = $_POST['ob'];
-$op = $_POST['op'];
+$json = json_decode($_GET['json'], true);
+$ob = $_GET['ob'];
+$op = $_GET['op'];
 
 //if (!isset($ob) && !isset($op)) {
 //    
