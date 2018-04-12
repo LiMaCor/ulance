@@ -2,7 +2,7 @@
  * Rutas generales
  */
 
-ulance.config(['$routeProvider', function ($routeProvider) {
+ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) {
     $routeProvider.when('/', {
         templateUrl: 'js/system/shared/login.html',
         controller: 'LoginController'
@@ -12,8 +12,12 @@ ulance.config(['$routeProvider', function ($routeProvider) {
         controller: 'LoginController'
     })
     .when('/main', {
-        templateUrl: 'js/system/shared/main-buenin.html',
+        templateUrl: 'js/system/shared/main.html',
         controller: 'MainController'
+    })
+    .when('/registros', {
+        templateUrl: 'js/app/movimiento/1/plist.html',
+        controller: 'RegistrosController'
     })
     .when('/logout', {
         templateUrl: 'js/system/shared/logout.html',
