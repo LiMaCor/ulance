@@ -19,6 +19,7 @@ div {
 
 .sidebar1 {
     grid-area: 1 / 1 / 7 / 2;
+    background-color: chartreuse;
 }
 
 #grid-nav {
@@ -35,8 +36,9 @@ div {
 #nav-list {
     text-align: center;
     height: auto;
-    padding: 3px;
-    background-color: chartreuse;
+    display: grid;
+    justify-content: space-around;
+    padding: 3px;  
 }
 
 .main {
