@@ -1,7 +1,7 @@
 'use strict'
 moduloMovimiento.controller('RegistrosController',
-    ['$http', '$scope', '$location', 'constantService', 'serverCallService', 'toolService',
-        function ($http, $scope, $location, constantService, serverCallService, toolService) {
+    ['$http', '$scope', '$location', 'constantService', 'serverCallService','sessionServerCallService', 'toolService',
+        function ($http, $scope, $location, constantService, serverCallService, sessionServerCallService, toolService) {
             $scope.ob = "movimiento";
             //-----------------------
             $scope.numeroPagina = toolService.checkDefault(1, 10); // Debugg: no es un valor fijo
@@ -21,11 +21,20 @@ moduloMovimiento.controller('RegistrosController',
                     }
                 }).then(function (response) {
                     if (response.data.status == 200) {
-                        $scope.pagina = response.data.json.data;
+                        $scope.pagina = response.data.json;
                     } else {
                         return false;
                     }
                 });
+            }
+            $scope.logout = function () {
+                sessionServerCallService.logout().then(function (response) {
+                    if (response.data.status == 200) {
+                        $location.path("/login");
+                    } else {
+                        return false;
+                    }
+                })
             }
             getDataFromServer();
         }

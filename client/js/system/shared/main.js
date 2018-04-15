@@ -11,5 +11,14 @@ moduloSistema.controller('MainController',
                     }
                 });
             };
+            $scope.logout = function () {
+                sessionServerCallService.logout().then(function (response) {
+                    if (response.data.status == 200) {
+                        $location.path("/login");
+                    } else {
+                        return false;
+                    }
+                })
+            }
         }
     ]);
