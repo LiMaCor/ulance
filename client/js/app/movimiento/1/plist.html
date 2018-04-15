@@ -8,7 +8,7 @@
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
-                        <a class="nav-link active" href="#">
+                        <a class="nav-link active" ng-href="/ulance/client/main">
                             <span class="display-1-inblock">
                                 Home
                             </span>
@@ -42,5 +42,25 @@
             </div>
         </div>
     </div>
-    
+    <div class="main">
+        <!-- DEBUGG -->
+        <table class="table table-responsive">
+            <tbody>
+                <th>Id</th>
+                <th>Concepto</th>
+                <th>Cantidad</th>
+                <th>Fecha</th>
+                <th>Perrete</th>
+                <th>Gatete</th>
+                <tr ng-repeat="registros in pagina">
+                    <td><div>{{registros.id}}</div></td>
+                    <td><div>{{registros.concepto}}</div></td>
+                    <td><div>{{registros.cantidad}}</div></td>
+                    <td><div>{{registros.fecha}}</div></td>
+                    <td><div>{{registros.categoriamovimiento_id}}</div></td>
+                    <td><div>{{registros.cuentabancaria_id}}</div></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
