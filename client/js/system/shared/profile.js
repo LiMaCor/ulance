@@ -5,9 +5,9 @@ moduloSistema.controller('ProfileController',
             $scope.ob = "usuario";
             //----------------
             function getDataFromServer() {
-                serverCallService.checkSession().then(function (response) {
+                sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
-                        $scope.idUsuario = response.data.json[0].id;
+                        $scope.idUsuario = response.data.json.id;
                         return serverCallService.get($scope.ob, $scope.idUsuario);
                     } else {
                         return false;
