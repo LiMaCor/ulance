@@ -23,6 +23,10 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
         templateUrl: 'js/system/shared/logout.html',
         controller: 'LogoutController'
     })
+    .when('/profile', {
+        templateUrl: 'js/system/shared/profile.html',
+        controller: 'ProfileController'
+    })
     .when('/usuario/1/plist/:np?/:rpp?', {
         templateUrl: 'js/app/usuario/1/plist.html',
         controller: 'Usuario1PlistController'
