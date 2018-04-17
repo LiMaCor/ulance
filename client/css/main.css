@@ -46,6 +46,27 @@ div {
     padding-top: 5em;
 }
 
+.main-profile {
+    grid-area: 2 / 2 / 7 / 4;
+    padding-top: 5em;
+}
+
+#img-profile {
+    display: flex;
+    height: 150px;
+    width: 150px;
+    margin: auto;
+    background-color: red;
+}
+
+#button-upload-img-profile {
+    padding-top: 2em;
+}
+
+.data-profile {
+    grid-area: 2 / 4 / 7 / 7;
+}
+
 #grid-main {
     display: grid;
     grid-gap: 15px;
