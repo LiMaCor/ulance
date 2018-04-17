@@ -117,7 +117,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
                 $toJson = new JsonHelper();
                 $oResult = $oDao->getFromLoginAndPass($json);
                 session_start();
-                $_SESSION['user'] = session_id();
+                $_SESSION['user'] = $oResult;
                 $aResult = $toJson->toJsonFormat($oResult);
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
@@ -147,7 +147,7 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
             $estadoSesion = session_status() ;
             if ($estadoSesion == 2) {
                 $toJson = new JsonHelper();
-                $aResponse = ["Session is active"];
+                $aResponse = $_SESSION['user'];
                 $aResult = $toJson->toJsonFormat($aResponse);
             }
             return $aResult;
