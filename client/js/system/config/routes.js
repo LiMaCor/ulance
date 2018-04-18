@@ -27,9 +27,17 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
         templateUrl: 'js/system/shared/profile.html',
         controller: 'ProfileController'
     })
-    .when('/usuario/1/plist/:np?/:rpp?', {
-        templateUrl: 'js/app/usuario/1/plist.html',
-        controller: 'Usuario1PlistController'
+    // .when('/usuario/1/plist/:np?/:rpp?', {
+    //     templateUrl: 'js/app/usuario/1/plist.html',
+    //     controller: 'Usuario1PlistController'
+    // })
+    .when('/cuentas', {
+        templateUrl: 'js/app/cuentabancaria/1/plist.html',
+        controller: 'CuentasBancariasController'
+    })
+    .when('/banco', {
+        templateUrl: 'js/app/banco/1/plist.html',
+        controller: 'BancoController'
     })
     .otherwise({
         redirectTo: '/'
