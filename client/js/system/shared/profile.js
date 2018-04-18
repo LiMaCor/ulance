@@ -27,7 +27,7 @@ moduloSistema.controller('ProfileController',
                     } else {
                         return false;
                     }
-                })
+                });
             }
             getDataFromServer();
         }
