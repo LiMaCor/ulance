@@ -20,8 +20,8 @@ moduloServicios.factory('serverCallService',
                         params: data                        
                     })
                 },
-                getPage: function (ob, np, rpp) {
-                    var data = { ob: ob, op: "getPage", json: { np: np, rpp: rpp } };
+                getPage: function (ob, np, rpp, filter) {
+                    var data = { ob: ob, op: "getPage", json: { np: np, rpp: rpp, filter: filter } };
                     return $http({
                         url: constantService.getAppUrl() + "?XDEBUG_SESSION_START",
                         method: 'GET',
