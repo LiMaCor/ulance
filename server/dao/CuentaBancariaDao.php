@@ -157,9 +157,10 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
                 $sqlHelper = new SQLHelper();
                 $total = $this->getCount();
                 $sqlMaker = $connection->getConnection();
-                $sqlLimit = $sqlHelper->buildSqlLimit($total, $array['np'], $array['rpp']);
+                $sqlFilter = $this->thisSqlFilter($array['filter']);
+                // $sqlLimit = $sqlHelper->buildSqlLimit($total, $array['np'], $array['rpp']);
                 $preparedStatement = $sqlMaker->prepare("SELECT * FROM cuentabancaria " . 
-                        "WHERE 1=?" . $sqlLimit);
+                        "WHERE 1=? AND id" . $sqlFilter);
                 $preparedStatement->bind_param('i', $a = 1);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -191,6 +192,19 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
             throw new Exception();
         }
         return $aResponse;
+    }
+
+    public function thisSqlFilter($filter) {
+        $sqlFilter = "";
+        if ($filter != NULL) {
+            $sqlFilter = " IN (SELECT cb.id FROM usuario u, cuentabancaria cb, cuentaasociada ca " .
+            "WHERE u.id = ca.usuario_id " . 
+            "AND cb.id = ca.cuentabancaria_id " . 
+            "AND u.id = " . $filter . ")";
+        } else {
+            $sqlFilter = NULL;
+        }
+        return $sqlFilter;
     }
     
 }
