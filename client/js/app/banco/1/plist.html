@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="header">
+        header
+        <button ng-click="logout()">Cerrar sesión</button>
+    </div>
+    <div class="sidebar1">
+        <div id="grid-nav">
+            <div id="profile-img">logo_userImg-img</div>
+            <div class="navbar-collapse collapse" id="nav-list">
+                <ul class="nav flex">
+                    <li class="nav-item w-100">
+                        <a class="nav-link active" ng-href="/ulance/client/main">
+                            <span class="display-1-inblock">
+                                Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/profile">
+                            <span class="display-2-inblock">
+                                Profile
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/cuentas">
+                            <span class="display-3-inblock">
+                                Cuentas
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/banco">
+                            <span class="display-4-inblock">
+                                Banco
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main-banco">
+        <div ng-repeat="banco in bancos">
+            <a ng-href="/ulance/client/cuentas-banco/{{banco.id}}">
+                <img src="{{banco.imagen}}" width="150" height="150"></img>
+            </a>
+            <br> {{banco.nombre}}
+        </div>
+    </div>
+</div>
