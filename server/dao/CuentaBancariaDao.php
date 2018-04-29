@@ -200,7 +200,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
             $sqlFilter = " IN (SELECT cb.id FROM usuario u, cuentabancaria cb, cuentaasociada ca " .
             "WHERE u.id = ca.usuario_id " . 
             "AND cb.id = ca.cuentabancaria_id " . 
-            "AND u.id = " . $filter . ")";
+            "AND u.id = " . $filter['id_1'];
+            if (array_key_exists("id_2", $filter)) {
+                $sqlFilter = $sqlFilter . " AND cb.banco_id = " . $filter['id_2'] . ")";
+            } else {
+                $sqlFilter = $sqlFilter . ")";
+            }
         } else {
             $sqlFilter = NULL;
         }

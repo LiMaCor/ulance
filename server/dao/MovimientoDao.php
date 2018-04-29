@@ -163,9 +163,10 @@ class MovimientoDao implements DaoTableInterface, DaoViewInterface {
                 $sqlHelper = new SQLHelper();
                 $total = $this->getCount();
                 $sqlMaker = $connection->getConnection();
+                $sqlFilter = $this->thisSqlFilter($array['filter']);
                 $sqlLimit = $sqlHelper->buildSqlLimit($total, $array['np'], $array['rpp']);
                 $preparedStatement = $sqlMaker->prepare("SELECT * FROM movimiento " . 
-                        "WHERE 1=?" . $sqlLimit);
+                        "WHERE 1=?" . $sqlFilter . $sqlLimit);
                 $preparedStatement->bind_param('i', $a = 1);
                 $preparedStatement->execute();
                 $preparedStatement->store_result();
@@ -197,6 +198,16 @@ class MovimientoDao implements DaoTableInterface, DaoViewInterface {
             throw new Exception();
         }
         return $aResponse;
+    }
+
+    public function thisSqlFilter($filter) {
+        $sqlFilter = "";
+        if ($filter != NULL) {
+            $sqlFilter = " AND cuentabancaria_id = " . $filter;
+        } else {
+            $sqlFilter = "";
+        }
+        return $sqlFilter;
     }
     
 }
