@@ -51,6 +51,14 @@ div {
     padding-top: 5em;
 }
 
+.main-cuentas {
+    grid-area: 2 / 2 / 7 / 7;
+}
+
+.main-banco {
+    grid-area: 2 / 2 / 7 / 7;
+}
+
 #img-profile {
     display: flex;
     height: 150px;
