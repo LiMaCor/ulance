@@ -16,7 +16,7 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
         controller: 'MainController'
     })
     .when('/registros', {
-        templateUrl: 'js/app/movimiento/1/plist.html',
+        templateUrl: 'js/system/shared/app/movimiento/plist.html',
         controller: 'RegistrosController'
     })
     .when('/logout', {
@@ -33,11 +33,20 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
     // })
     .when('/cuentas', {
         templateUrl: 'js/app/cuentabancaria/1/plist.html',
-        controller: 'CuentasBancariasController'
+        controller: 'CuentasBancarias1Controller'
     })
     .when('/banco', {
         templateUrl: 'js/app/banco/1/plist.html',
-        controller: 'BancoController'
+        controller: 'Banco1Controller'
+    })
+    .when('/cuentas-banco/:id', {
+        templateUrl: 'js/system/shared/app/cuentabancaria/plist.html',
+        controller: 'CuentasBancariasController'
+    })
+    //--------- PERFIL 1 -----------
+    .when('/cuentas/1/:id', {
+        templateUrl: 'js/system/shared/app/movimiento/plist.html',
+        controller: 'Movimientos1Controller'
     })
     .otherwise({
         redirectTo: '/'
