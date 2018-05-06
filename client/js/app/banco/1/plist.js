@@ -10,7 +10,7 @@ moduloBanco.controller('Banco1Controller',
             function getDataFromServer() {
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
-                        $scope.idUser = response.data.json.id;
+                        $scope.usuarioEnSesion = response.data.json;
                         return serverCallService.getPage($scope.ob, $scope.numeroPagina, $scope.RegistrosPorPagina);
                     } else {
                         return false;
@@ -31,6 +31,9 @@ moduloBanco.controller('Banco1Controller',
                         return false;
                     }
                 })
+            };
+            $scope.anyadirBanco = function () {
+                $location.path("/banco/add");
             };
             getDataFromServer();
         }
