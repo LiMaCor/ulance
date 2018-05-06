@@ -8,9 +8,6 @@ moduloSistema.controller('MainController',
             $scope.numeroPagina = 1;
             $scope.registrosPorPagina = 100;
             //-------------------
-            $scope.gastos = 0;
-            $scope.ingresos = 0;
-            //-------------------
             function getDataFromServer() {
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
@@ -26,10 +23,10 @@ moduloSistema.controller('MainController',
                         angular.forEach($scope.cuentas, function (valor, indice) {
                             return serverCallService.getPage($scope.ob_movimiento, $scope.numeroPagina, $scope.registrosPorPagina, valor.id).then(function (response) {
                                 if (response.data.status == 200) {
-                                    if (response.data.json.cantidad < 0) {
-                                        $scope.gastos += response.data.json.cantidad;
+                                    if (response.data.cantidad < 0) {
+                                        $scope.gastos += parseInt(response.data.json.cantidad);
                                     } else {
-                                        $scope.ingresos += response.data.json.cantidad;
+                                        $scope.ingresos += parseInt(response.data.json[0].cantidad);
                                     }
                                 } else {
                                     return false;
@@ -46,6 +43,12 @@ moduloSistema.controller('MainController',
             };
             $scope.registros = function () {
                 $location.path("/registros");
+            };
+            $scope.usuarios = function () {
+                $location.path("/usuarios");
+            };
+            $scope.bancos = function () {
+                $location.path("/banco");
             };
             $scope.logout = function () {
                 sessionServerCallService.logout().then(function (response) {
