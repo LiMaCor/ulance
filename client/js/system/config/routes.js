@@ -2,7 +2,12 @@
  * Rutas generales
  */
 
+var anyAuthenticationPromise = function (sessionService) {
+    return sessionService.anyAuthenticationPromise();
+};
+
 ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) {
+    //--------- SISTEMA -------------
     $routeProvider.when('/', {
         templateUrl: 'js/system/shared/login.html',
         controller: 'LoginController'
@@ -13,42 +18,67 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
     })
     .when('/main', {
         templateUrl: 'js/system/shared/main.html',
-        controller: 'MainController'
-    })
-    .when('/registros', {
-        templateUrl: 'js/system/shared/app/movimiento/plist.html',
-        controller: 'RegistrosController'
+        controller: 'MainController',
+        resolve: {auth: anyAuthenticationPromise}
     })
     .when('/logout', {
         templateUrl: 'js/system/shared/logout.html',
-        controller: 'LogoutController'
+        controller: 'LogoutController',
+        resolve: {auth: anyAuthenticationPromise}
+    })
+    //-------- SHARED ------------
+    .when('/registros', {
+        templateUrl: 'js/system/shared/app/movimiento/plist.html',
+        controller: 'RegistrosController',
+        resolve: {auth: anyAuthenticationPromise}
     })
     .when('/profile', {
         templateUrl: 'js/system/shared/profile.html',
-        controller: 'ProfileController'
+        controller: 'ProfileController',
+        resolve: {auth: anyAuthenticationPromise}
     })
-    // .when('/usuario/1/plist/:np?/:rpp?', {
-    //     templateUrl: 'js/app/usuario/1/plist.html',
-    //     controller: 'Usuario1PlistController'
-    // })
     .when('/cuentas', {
         templateUrl: 'js/app/cuentabancaria/1/plist.html',
-        controller: 'CuentasBancarias1Controller'
+        controller: 'CuentasBancarias1Controller',
+        resolve: {auth: anyAuthenticationPromise}
     })
     .when('/banco', {
         templateUrl: 'js/app/banco/1/plist.html',
-        controller: 'Banco1Controller'
+        controller: 'Banco1Controller',
+        resolve: {auth: anyAuthenticationPromise}
     })
-    .when('/cuentas-banco/:id', {
+    .when('/banco/add', {
+        templateUrl: 'js/app/banco/1/new.html',
+        controller: 'BancoNew1Controller',
+        resolve: {auth: anyAuthenticationPromise}
+    })
+    .when('/cuentasbanco/:id', {
         templateUrl: 'js/system/shared/app/cuentabancaria/plist.html',
-        controller: 'CuentasBancariasController'
+        controller: 'CuentasBancariasController',
+        resolve: {auth: anyAuthenticationPromise}
     })
     //--------- PERFIL 1 -----------
+    .when('/usuario/add', {
+        templateUrl: 'js/app/usuario/1/new.html',
+        controller: 'UsuarioNew1Controller',
+        resolve: {auth: anyAuthenticationPromise}
+    })
+    .when('/usuarios', {
+        templateUrl: 'js/app/usuario/1/plist.html',
+        controller: 'Usuarios1Controller',
+        resolve: {auth: anyAuthenticationPromise}
+    })
+    .when('/usuario/:id', {
+        templateUrl: 'js/app/usuario/1/view.html',
+        controller: 'UsuariosViewController',
+        resolve: {auth: anyAuthenticationPromise}
+    })
     .when('/cuentas/1/:id', {
         templateUrl: 'js/system/shared/app/movimiento/plist.html',
-        controller: 'Movimientos1Controller'
+        controller: 'Movimientos1Controller',
+        resolve: {auth: anyAuthenticationPromise}
     })
     .otherwise({
-        redirectTo: '/'
+        redirectTo: '/main'
     });
 }]);
