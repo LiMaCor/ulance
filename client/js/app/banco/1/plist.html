@@ -45,10 +45,13 @@
     </div>
     <div class="main-banco">
         <div ng-repeat="banco in bancos">
-            <a ng-href="/ulance/client/cuentas-banco/{{banco.id}}">
+            <a ng-href="cuentasbanco/{{banco.id}}">
                 <img src="{{banco.imagen}}" width="150" height="150"></img>
             </a>
             <br> {{banco.nombre}}
+        </div>
+        <div ng-if="usuarioEnSesion.tipousuario_id == 1">
+            <button class="btn btn-success" ng-click="anyadirBanco()">Añadir Banco</button>
         </div>
     </div>
 </div>
