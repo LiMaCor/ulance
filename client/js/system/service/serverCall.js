@@ -12,6 +12,14 @@ moduloServicios.factory('serverCallService',
                         params: data
                     })
                 },
+                set: function (ob, datos) {
+                    var data = { ob: ob, op: "set", json: datos };
+                    return $http({
+                        url: constantService.getAppUrl() + "?XDEBUG_SESSION_START",
+                        method: 'GET',
+                        params: data
+                    })
+                },
                 getCount: function (ob) {
                     var data = { ob: ob, op: "getCount" };
                     return $http({
