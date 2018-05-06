@@ -63,12 +63,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
             try {
                 $insert = TRUE;
                 $sqlMaker = $connection->getConnection();
-                if ($array['id'] == NULL) {
+                if (!array_key_exists("id", $array)) {
                     $preparedStatement = $sqlMaker->prepare("INSERT INTO usuario" .
-                            "(dni, nombre, primerapellido, segundoapellido, " .
+                            "(nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
                             "?, ?, ?, ?, ?, ?, ?, ?)");
-                    $preparedStatement->bind_param('sssssssi', $array['dni'], $array['nombre'],
+                    $preparedStatement->bind_param('ssssssi', $array['nombre'],
                             $array['primerapellido'], $array['segundoapellido'], $array['login'],
                             $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
@@ -76,10 +76,10 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                 } else {
                     $insert = FALSE;
                     $preparedStatement = $sqlMaker->prepare("UPDATE ? SET " .
-                            "dni=?, nombre=?, primerapellido=?, " .
+                            "nombre=?, primerapellido=?, " .
                             "segundoapellido=?, login=?, pass=?, email=?, " .
                             "tipousuario_id =? WHERE id=?");
-                    $preparedStatement->bind_param('sssssssii', $array['dni'], $array['nombre'],
+                    $preparedStatement->bind_param('ssssssii', $array['nombre'],
                             $array['primerapellido'], $array['segundoapellido'], $array['login'],
                             $array['pass'], $array['email'], $array['tipousuario_id']);
                     $preparedStatement->execute();
