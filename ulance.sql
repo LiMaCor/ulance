@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost:3306
--- Tiempo de generación: 18-02-2018 a las 15:58:01
+-- Tiempo de generación: 30-04-2018 a las 08:39:42
 -- Versión del servidor: 5.6.39
 -- Versión de PHP: 5.6.33
 
@@ -30,16 +30,17 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `banco` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+  `nombre` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `imagen` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Volcado de datos para la tabla `banco`
 --
 
-INSERT INTO `banco` (`id`, `nombre`) VALUES
-(1, 'BBVA'),
-(2, 'Santander');
+INSERT INTO `banco` (`id`, `nombre`, `imagen`) VALUES
+(1, 'BBVA', 'https://yt3.ggpht.com/a-/AJLlDp3O_EBSqjpO_fnOVu7yh1rUYHSOXYYhBu8H3Q=s900-mo-c-c0xffffffff-rj-k-no'),
+(2, 'Santander', 'https://www.santander.cl/css/bitmaps/santander_facebook.jpg');
 
 -- --------------------------------------------------------
 
@@ -73,6 +74,15 @@ CREATE TABLE `cuentaasociada` (
   `cuentabancaria_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
+--
+-- Volcado de datos para la tabla `cuentaasociada`
+--
+
+INSERT INTO `cuentaasociada` (`id`, `descripcion`, `usuario_id`, `cuentabancaria_id`) VALUES
+(1, 'Cuenta BBVA', 1, 3),
+(2, 'Cuenta BBVA', 1, 5),
+(3, 'Cuenta Santander', 1, 6);
+
 -- --------------------------------------------------------
 
 --
@@ -91,7 +101,9 @@ CREATE TABLE `cuentabancaria` (
 
 INSERT INTO `cuentabancaria` (`id`, `iban`, `banco_id`) VALUES
 (3, 'ES11 5814 7570 5329 7994 4195', 1),
-(4, 'ES77 7258 7103 5689 2786 0325', 2);
+(4, 'ES77 7258 7103 5689 2786 0325', 2),
+(5, 'ES93 2214 7600 5314 0294 4188', 1),
+(6, 'ES18 0000 7600 9115 3330 2094', 2);
 
 -- --------------------------------------------------------
 
@@ -102,7 +114,7 @@ INSERT INTO `cuentabancaria` (`id`, `iban`, `banco_id`) VALUES
 CREATE TABLE `movimiento` (
   `id` int(11) NOT NULL,
   `concepto` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `cantidad` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `cantidad` double DEFAULT NULL,
   `fecha` datetime DEFAULT NULL,
   `categoriamovimiento_id` int(11) NOT NULL,
   `cuentabancaria_id` int(11) NOT NULL
@@ -113,9 +125,11 @@ CREATE TABLE `movimiento` (
 --
 
 INSERT INTO `movimiento` (`id`, `concepto`, `cantidad`, `fecha`, `categoriamovimiento_id`, `cuentabancaria_id`) VALUES
-(4, 'Hosting Bacalaos S.A', '300', '2018-02-01 13:19:30', 1, 3),
-(5, 'Impuesto circulación', '-50', '2018-02-01 00:00:00', 2, 3),
-(6, 'Desarrollo Web - Macareno S.L', '3000', '2017-12-06 15:45:28', 1, 4);
+(4, 'Hosting Bacalaos S.A', 300, '2018-02-01 13:19:30', 1, 3),
+(5, 'Impuesto circulación', -50, '2018-02-01 00:00:00', 2, 3),
+(6, 'Desarrollo Web - Macareno S.L', 3000, '2017-12-06 15:45:28', 1, 5),
+(7, 'Prueba 07', 250, '2018-04-12 00:00:00', 1, 5),
+(8, 'Prueba 08', 150, '2018-03-21 00:00:00', 1, 6);
 
 -- --------------------------------------------------------
 
@@ -233,19 +247,19 @@ ALTER TABLE `categoriamovimiento`
 -- AUTO_INCREMENT de la tabla `cuentaasociada`
 --
 ALTER TABLE `cuentaasociada`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `cuentabancaria`
 --
 ALTER TABLE `cuentabancaria`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `movimiento`
 --
 ALTER TABLE `movimiento`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `tipousuario`
