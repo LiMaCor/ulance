@@ -1,0 +1,83 @@
+<div class="container">
+    <div class="header">
+        header
+        <button ng-click="logout()">Cerrar sesión</button>
+    </div>
+    <div class="sidebar1">
+        <div id="grid-nav">
+            <div id="profile-img">logo_userImg-img</div>
+            <div class="navbar-collapse collapse" id="nav-list">
+                <ul class="nav flex">
+                    <li class="nav-item w-100">
+                        <a class="nav-link active" ng-href="/ulance/client/main">
+                            <span class="display-1-inblock">
+                                Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/profile">
+                            <span class="display-2-inblock">
+                                Profile
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/cuentas">
+                            <span class="display-3-inblock">
+                                Cuentas
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/banco">
+                            <span class="display-4-inblock">
+                                Banco
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <form ng-if=!status>
+            <div>
+                <input name="nombre" type="text" class="form-control" placeholder="Nombre" size="15" ng-model="datosFormulario.nombre" />
+            </div>
+            <div>
+                <input name="primerapellido" type="text" class="form-control" placeholder="Primer apellido" size="20" ng-model="datosFormulario.primerapellido"
+                />
+            </div>
+            <div>
+                <input name="segundoapellido" type="text" class="form-control" placeholder="Segundo apellido" size="20" ng-model="datosFormulario.segundoapellido"
+                />
+            </div>
+            <div>
+                <input name="login" type="text" class="form-control" placeholder="Nombre de usuario" size="30" ng-model="datosFormulario.login"
+                />
+            </div>
+            <div>
+                <input name="pass" type="password" class="form-control" placeholder="Contraseña" size="24" ng-model="datosFormulario.pass"
+                />
+            </div>
+            <div>
+                <input name="email" type="email" class="form-control" placeholder="Email" size="50" ng-model="datosFormulario.email" />
+            </div>
+            <div>
+                <select ng-model="datosFormulario.tipousuario_id" ng-options="tipo.id as tipo.descripcion for tipo in tipoUsuarios">
+                    <option value="">No se ha seleccionado</option>
+                </select>
+            </div>
+            <div>
+                <a class="btn btn-primary" ng-click="add()">Crear usuario</a>
+            </div>
+        </form>
+        <div ng-if="status">
+            <h2>{{status}}</h2>
+        </div>
+    </div>
+</div>
