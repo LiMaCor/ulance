@@ -1,0 +1,68 @@
+<div class="container">
+    <div class="header">
+        header
+        <button ng-click="logout()">Cerrar sesión</button>
+    </div>
+    <div class="sidebar1">
+        <div id="grid-nav">
+            <div id="profile-img">logo_userImg-img</div>
+            <div class="navbar-collapse collapse" id="nav-list">
+                <ul class="nav flex">
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/main">
+                            <span class="display-1-inblock">
+                                Home
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link active" ng-href="/ulance/client/profile">
+                            <span class="display-2-inblock">
+                                Profile
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/cuentas">
+                            <span class="display-3-inblock">
+                                Cuentas
+                            </span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item w-100">
+                        <a class="nav-link" ng-href="/ulance/client/banco">
+                            <span class="display-4-inblock">
+                                Banco
+                            </span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="main">
+        <!-- DEBUGG -->
+        <table class="table table-responsive">
+            <tbody>
+                <th>Id</th>
+                <th>Usuario</th>
+                <tr ng-repeat="registros in pagina">
+                    <td>
+                        <div>{{registros.id}}</div>
+                    </td>
+                    <td>
+                        <div>
+                            <a ng-href="/ulance/client/usuario/{{registros.id}}">{{registros.login}}</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div ng-if="usuarioEnSesion.tipousuario_id == 1"
+            <button class="btn btn-success" ng-click="anyadirUsuario()">Añadir Usuario</button>
+        </div>
+    </div>
+</div>
