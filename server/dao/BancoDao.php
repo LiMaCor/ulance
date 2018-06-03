@@ -64,15 +64,15 @@ class BancoDao implements DaoTableInterface, DaoViewInterface {
                 $sqlMaker = $connection->getConnection();
                 if ($array['id'] == NULL) {
                     $preparedStatement = $sqlMaker->prepare("INSERT INTO banco" .
-                            "(nombre) VALUES(?)");
-                    $preparedStatement->bind_param('s', $array['nombre']);
+                            "(nombre, imagen) VALUES(?, ?)");
+                    $preparedStatement->bind_param('ss', $array['nombre'], $array['imagen']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                 } else {
                     $insert = FALSE;
                     $preparedStatement = $sqlMaker->prepare("UPDATE banco SET " .
-                            "nombre=? WHERE id=?");
-                    $preparedStatement->bind_param('si', $array['nombre'], $array['id']);
+                            "nombre=?, imagen=? WHERE id=?");
+                    $preparedStatement->bind_param('ssi', $array['nombre'], $array['imagen'], $array['id']);
                     $preparedStatement->execute();
                     $preparedStatement->store_result();
                     $rows = $preparedStatement->num_rows;
