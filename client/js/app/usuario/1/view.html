@@ -1,11 +1,13 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+        <p>Perfil de {{datosUsuario.login}}</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
-            <div id="profile-img">logo_userImg-img</div>
+            <div id="profile-img">
+                <img id="user-profile-img" src="{{imgUsuario}}" alt="imagen-perfil">
+            </div>
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
@@ -45,15 +47,17 @@
     </div>
     <div class="main-profile">
         <div id="img-profile">
+            <img src="{{imgUsuario}}" alt="imagen-perfil">
         </div>
         <div id="button-upload-img-profile">
-            <button ng-click="">Submit</button>
+            <form enctype="multipart/form-data" id="formulario-subir-imagen">
+                <input type="file" class="form-control-file" ng-model="subir.img">                
+            </form>
         </div>
+        <button class="btn btn-primary btn-lg" ng-click="submit()">Submit</button>
     </div>
     <div class="data-profile">
-        user-data-profile
-        <!-- DEBUGG -->
-        <table class="table table-responsive">
+        <table id="table">
             <tbody>
                 <tr>
                     <td>Id</td>
