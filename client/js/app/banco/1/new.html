@@ -5,7 +5,9 @@
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
-            <div id="profile-img">logo_userImg-img</div>
+            <div id="profile-img">
+                <img id="user-profile-img" src="{{imgUsuario}}" alt="imagen-perfil">
+            </div>
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
@@ -44,6 +46,20 @@
         </div>
     </div>
     <div class="main">
-        
+        <form ng-if=!status>
+            <div>
+                <input name="nombre" type="text" class="form-control" placeholder="Nombre" size="15" ng-model="datosFormulario.nombre" />
+            </div>
+            <div>
+                <input name="imagen" type="text" class="form-control" placeholder="Imagen" size="255" ng-model="datosFormulario.imagen"
+                />
+            </div>
+            <div>
+                <a class="btn btn-primary" ng-click="add()">Crear banco</a>
+            </div>
+        </form>
+        <div ng-if="status">
+            <h2>{{status}}</h2>
+        </div>
     </div>
 </div>
