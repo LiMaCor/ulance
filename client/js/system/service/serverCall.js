@@ -35,6 +35,14 @@ moduloServicios.factory('serverCallService',
                         method: 'GET',
                         params: data
                     })
+                },
+                uploadImg: function(ob, imgString, field) {
+                    var data = { ob: ob, op: "uploadImg", json: { img: imgString, field: field } };
+                    return $http({
+                        url: constantService.getAppUrl() + "?XDEBUG_SESSION_START",
+                        method: 'GET',
+                        params: data
+                    })
                 }
             }
         }
