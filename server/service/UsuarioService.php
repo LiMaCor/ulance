@@ -157,4 +157,21 @@ class UsuarioService implements ServiceTableInterface, ServiceViewInterface {
         }
     }
 
+    public function uploadImg($json) {
+        if ($this->checkPermission("uploadImg")) {
+            try {
+                $oDao = new UsuarioDao();
+                $toJson = new JsonHelper();
+                $aJson = $oDao->uploadImg($json);
+                $aResult = $toJson->toJsonFormat($aJson);
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            }
+            return $aResult;
+        } else {
+            $aResult = $toJson->toJsonBadResponse();
+            return $aResult;
+        }
+    }
+
 }
