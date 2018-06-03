@@ -12,6 +12,7 @@ moduloMovimiento.controller('Movimientos1Controller',
             function getDataFromServer() {
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
+                        $scope.imgUsuario = response.data.json.imagen;
                         return serverCallService.getCount($scope.ob);
                     } else {
                         return false;
