@@ -11,13 +11,22 @@ moduloUsuario.controller('UsuarioNew1Controller',
             $scope.numeroPagina = 1;
             $scope.registrosPorPagina = 10;
             //---------------------
-            serverCallService.getPage($scope.obExterno, $scope.numeroPagina, $scope.registrosPorPagina).then(function (response) {
-                if (response.data.status == 200) {
-                    $scope.tipoUsuarios = response.data.json;
-                } else {
-                    return false;
-                }
-            });
+            function getDataFromServer() {
+                sessionServerCallService.checkSession().then(function (response) {
+                    if (response.data.status == 200) {
+                        $scope.imgUsuario = response.data.json.imagen;
+                        return serverCallService.getPage($scope.obExterno, $scope.numeroPagina, $scope.registrosPorPagina);
+                    } else {
+                        return false;
+                    }
+                }).then(function (response) {
+                    if (response.data.status == 200) {
+                        $scope.tipoUsuarios = response.data.json;
+                    } else {
+                        return false;
+                    }
+                });
+            };
             $scope.add = function() {
                 console.log($scope.datosFormulario);
                 serverCallService.set($scope.ob, $scope.datosFormulario).then(function (response) {
@@ -28,5 +37,6 @@ moduloUsuario.controller('UsuarioNew1Controller',
                     }
                 });
             };
+            getDataFromServer();
         }
     ])
