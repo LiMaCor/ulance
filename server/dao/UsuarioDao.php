@@ -67,7 +67,7 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     $preparedStatement = $sqlMaker->prepare("INSERT INTO usuario" .
                             "(nombre, primerapellido, segundoapellido, " .
                             "login, pass, email, tipousuario_id) VALUES( " .
-                            "?, ?, ?, ?, ?, ?, ?, ?)");
+                            "?, ?, ?, ?, ?, ?, ?)");
                     $preparedStatement->bind_param('ssssssi', $array['nombre'],
                             $array['primerapellido'], $array['segundoapellido'], $array['login'],
                             $array['pass'], $array['email'], $array['tipousuario_id']);
@@ -232,6 +232,42 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
                     $aResult = $aTest;
                 } else {
                     throw new Exception();
+                }
+            } catch (Exception $ex) {
+                throw new Exception($ex->getMessage());
+            } finally {
+                if ($preparedStatement !== NULL) {
+                    $preparedStatement->close();
+                }
+            }
+        } else {
+            throw new Exception();
+        }
+        return $aResult;
+    }
+
+    public function uploadImg($array) {
+        $connection = new ConnectionHelper();
+        if ($connection->checkDBConnection()) {
+            try {
+                $sqlMaker = $connection->getConnection();
+                $insert = FALSE;
+                $preparedStatement = $sqlMaker->prepare("UPDATE ? SET " .
+                        "nombre=?, primerapellido=?, " .
+                        "segundoapellido=?, login=?, pass=?, email=?, " .
+                        "tipousuario_id =? WHERE id=?");
+                $preparedStatement->bind_param('ssssssii', $array['nombre'],
+                        $array['primerapellido'], $array['segundoapellido'], $array['login'],
+                        $array['pass'], $array['email'], $array['tipousuario_id']);
+                $preparedStatement->execute();
+                $preparedStatement->store_result();
+                $rows = $preparedStatement->num_rows;
+                if ($rows < 0) {
+                    throw new Exception();
+                }
+                if ($insert) {
+                    $iResult = $sqlMaker->insert_id;
+                    $aResult = ["id" => $iResult];
                 }
             } catch (Exception $ex) {
                 throw new Exception($ex->getMessage());
