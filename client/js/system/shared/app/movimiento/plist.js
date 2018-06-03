@@ -1,6 +1,6 @@
 'use strict'
 moduloMovimiento.controller('RegistrosController',
-    ['$http', '$scope', '$location', 'constantService', 'serverCallService','sessionServerCallService', 'toolService',
+    ['$http', '$scope', '$location', 'constantService', 'serverCallService', 'sessionServerCallService', 'toolService',
         function ($http, $scope, $location, constantService, serverCallService, sessionServerCallService, toolService) {
             $scope.ob = "movimiento";
             //-----------------------
@@ -8,7 +8,14 @@ moduloMovimiento.controller('RegistrosController',
             $scope.registrosPorPagina = toolService.checkDefault(10, 50); // Debugg: no es un valor fijo
             //-----------------------
             function getDataFromServer() {
-                serverCallService.getCount($scope.ob).then(function (response) {
+                sessionServerCallService.checkSession().then(function (response) {
+                    if (response.data.status == 200) {
+                        $scope.imgUsuario = response.data.json.imagen;
+                        return serverCallService.getCount($scope.ob);
+                    } else {
+                        return false;
+                    }
+                }).then(function (response) {
                     if (response.data.status == 200) {
                         $scope.registros = response.data.json.rows;
                         $scope.paginas = toolService.calculatePages($scope.registrosPorPagina, $scope.registros);

@@ -1,11 +1,13 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+        <p>Movimientos</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
-            <div id="profile-img">logo_userImg-img</div>
+            <div id="profile-img">
+                <img id="user-profile-img" src="{{imgUsuario}}" alt="imagen-perfil">
+            </div>
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
@@ -43,16 +45,13 @@
             </div>
         </div>
     </div>
-    <div class="main">
-        <!-- DEBUGG -->
-        <table class="table table-responsive">
+    <div id="main-movimientos">
+        <table id="table-users">
             <tbody>
                 <th>Id</th>
                 <th>Concepto</th>
                 <th>Cantidad</th>
                 <th>Fecha</th>
-                <th>Perrete</th>
-                <th>Gatete</th>
                 <tr ng-repeat="registros in pagina">
                     <td>
                         <div>{{registros.id}}</div>
@@ -66,17 +65,14 @@
                     <td>
                         <div>{{registros.fecha}}</div>
                     </td>
-                    <td>
-                        <div>{{registros.categoriamovimiento_id}}</div>
-                    </td>
-                    <td>
-                        <div>{{registros.cuentabancaria_id}}</div>
-                    </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div>
-        <canvas id="myChart" width="400" height="400"></canvas>
+    <div class="sidebar2">
+        Balance
+        <div id="canvas-container">
+            <canvas id="myChart" width="400" height="400"></canvas>
+        </div>
     </div>
 </div>
