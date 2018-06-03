@@ -1,11 +1,13 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+            <p>Cuentas de {{username}}</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
-            <div id="profile-img">logo_userImg-img</div>
+            <div id="profile-img">
+                <img id="user-profile-img" src="{{imgUsuario}}" alt="imagen-perfil">
+            </div>
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
@@ -44,7 +46,7 @@
         </div>
     </div>
     <div class="main-cuentas">
-        <div ng-repeat="cuenta in cuentasBancarias">
+        <div id="containers-cuentas" ng-repeat="cuenta in cuentasBancarias">
             <a ng-href="/ulance/client/cuentas/{{profile}}/{{cuenta.id}}">
                 <span>{{cuenta.iban}}</span>
             </a>
