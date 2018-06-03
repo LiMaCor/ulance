@@ -11,6 +11,7 @@ moduloUsuario.controller('Usuarios1Controller',
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
                         $scope.usuarioEnSesion = response.data.json;
+                        $scope.imgUsuario = response.data.json.imagen;
                         return serverCallService.getCount($scope.ob);
                     } else {
                         return false;
