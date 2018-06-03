@@ -12,6 +12,7 @@ moduloSistema.controller('MainController',
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
                         $scope.idUsuario = response.data.json.id;
+                        $scope.imgUsuario = response.data.json.imagen;
                         $scope.filtros = { id_1: $scope.idUsuario };
                         return serverCallService.getPage($scope.ob_cuentabancaria, $scope.numeroPagina, $scope.registrosPorPagina, $scope.filtros);
                     } else {
