@@ -11,6 +11,7 @@ moduloBanco.controller('Banco1Controller',
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
                         $scope.usuarioEnSesion = response.data.json;
+                        $scope.imgUsuario = response.data.json.imagen;
                         return serverCallService.getPage($scope.ob, $scope.numeroPagina, $scope.RegistrosPorPagina);
                     } else {
                         return false;

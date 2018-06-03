@@ -1,11 +1,13 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+        <p>Bancos</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
-            <div id="profile-img">logo_userImg-img</div>
+            <div id="profile-img">
+                <img id="user-profile-img" src="{{imgUsuario}}" alt="imagen-perfil">
+            </div>
             <div class="navbar-collapse collapse" id="nav-list">
                 <ul class="nav flex">
                     <li class="nav-item w-100">
@@ -44,14 +46,13 @@
         </div>
     </div>
     <div class="main-banco">
-        <div ng-repeat="banco in bancos">
+        <div ng-repeat="banco in bancos" id="containers-bancos">
             <a ng-href="cuentasbanco/{{banco.id}}">
                 <img src="{{banco.imagen}}" width="150" height="150"></img>
             </a>
-            <br> {{banco.nombre}}
         </div>
         <div ng-if="usuarioEnSesion.tipousuario_id == 1">
-            <button class="btn btn-success" ng-click="anyadirBanco()">Añadir Banco</button>
+            <button id="boton-anyadir-banco" class="btn btn-success" ng-click="anyadirBanco()">Añadir Banco</button>
         </div>
     </div>
 </div>
