@@ -30,12 +30,12 @@ moduloServicios.factory('toolService', [function () {
                         label: 'Ingresos y gastos',
                         data: [50, 22],
                         backgroundColor: [
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255, 99, 132, 1)'
+                            'rgba(64, 245, 160, 1)',
+                            'rgba(245, 64, 149, 1)'
                         ],
                         borderColor: [
-                            'rgba(54, 162, 235, 1)',
-                            'rgba(255,99,132,1)'
+                            'rgba(64, 245, 160, 1)',
+                            'rgba(245, 64, 149, 1)'
                         ],
                         borderWidth: 1
                     }]
