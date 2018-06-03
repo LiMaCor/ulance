@@ -12,9 +12,11 @@ moduloCuentaBancaria.controller('CuentasBancarias1Controller',
                 sessionServerCallService.checkSession().then(function (response) {
                     if (response.data.status == 200) {
                         $scope.idUsuario = response.data.json.id;
+                        $scope.imgUsuario = response.data.json.imagen;
                         $scope.nombreUsuario = response.data.json.nombre;
                         $scope.primerApellidoUsuario = response.data.json.primerapellido;
                         $scope.segundoApellidoUsuario = response.data.json.segundoapellido;
+                        $scope.username = response.data.json.login;
                         $scope.filtros = { id_1: $scope.idUsuario };
                         return serverCallService.getPage($scope.ob, $scope.numeroPagina, $scope.registrosPorPagina, $scope.filtros);
                     } else {
