@@ -37,6 +37,9 @@ class MappingHelper {
                     case "logout":
                         $aResult = $oUsuarioService->logout($json);
                         break;
+                    case "uploadImg":
+                        $aResult = $oUsuarioService->uploadImg($json);
+                        break;
                     default:
                         $aResult = ["code" => 500, "json" => "Operation not found : Please contact your administrator"];
                         break;
