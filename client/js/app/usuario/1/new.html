@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+        <p>Añadir usuario</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
@@ -45,10 +45,11 @@
             </div>
         </div>
     </div>
-    <div class="main">
-        <form ng-if=!status>
+    <div class="main-cuentas">
+        <form ng-if=!status id="formulario-anyadir-usuario">
             <div>
                 <input name="nombre" type="text" class="form-control" placeholder="Nombre" size="15" ng-model="datosFormulario.nombre" />
+                <p ng-show="datosFormulario.nombre.$invalid && !datosFormulario.nombre.$pristine" class="help-block">Escribe tu nombre</p>
             </div>
             <div>
                 <input name="primerapellido" type="text" class="form-control" placeholder="Primer apellido" size="20" ng-model="datosFormulario.primerapellido"
@@ -75,7 +76,7 @@
                 </select>
             </div>
             <div>
-                <a class="btn btn-primary" ng-click="add()">Crear usuario</a>
+                <a id="boton-crear-usuario" class="btn btn-success" ng-click="add()">Crear usuario</a>
             </div>
         </form>
         <div ng-if="status">
