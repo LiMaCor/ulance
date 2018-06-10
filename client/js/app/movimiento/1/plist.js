@@ -45,6 +45,10 @@ moduloMovimiento.controller('Movimientos1Controller',
                     }
                 });
             }
+            function chartMovimientos() {
+                toolService.chartJS();
+            }
             getDataFromServer();
+            chartMovimientos();
         }
     ]);
