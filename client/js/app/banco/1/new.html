@@ -1,7 +1,7 @@
 <div class="container">
     <div class="header">
-        header
-        <button ng-click="logout()">Cerrar sesión</button>
+        <p>Añadir banco</p>
+        <button ng-click="logout()" class="btn btn-info">Cerrar sesión</button>
     </div>
     <div class="sidebar1">
         <div id="grid-nav">
@@ -46,16 +46,15 @@
         </div>
     </div>
     <div class="main">
-        <form ng-if=!status>
+        <form id="formulario-anyadir-banco" ng-if=!status>
             <div>
                 <input name="nombre" type="text" class="form-control" placeholder="Nombre" size="15" ng-model="datosFormulario.nombre" />
             </div>
             <div>
-                <input name="imagen" type="text" class="form-control" placeholder="Imagen" size="255" ng-model="datosFormulario.imagen"
-                />
+                <input name="imagen" type="text" class="form-control" placeholder="Imagen" size="255" ng-model="datosFormulario.imagen" />
             </div>
             <div>
-                <a class="btn btn-primary" ng-click="add()">Crear banco</a>
+                <a id="boton-crear-usuario" class="btn btn-success" ng-click="add()">Crear banco</a>
             </div>
         </form>
         <div ng-if="status">
