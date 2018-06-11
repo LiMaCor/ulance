@@ -23,6 +23,25 @@ moduloServicios.factory('sessionService', function ($q, sessionServerCallService
             });
             return deferred.promise;
         },
+        administradorPromise: function () {
+            var deferred = $q.defer();
+            sessionServerCallService.checkSession().then(function (response) {
+                if (response.data.status == 200 && response.data.json.tipousuario_id == 1) {
+                    isSessionActiveTF = true;
+                    sessionInfo = response.data.json;
+                    deferred.resolve();
+                } else {
+                    isSessionActiveTF = false;
+                    deferred.resolve();
+                    $location.path("/");
+                }
+            }).catch(function (data) {
+                isSessionActiveTF = false;
+                deferred.resolve();
+                $location.path("/");
+            });
+            return deferred.promise;
+        },
         isSessionActive: function () {
             return isSessionActiveTF;
         },
