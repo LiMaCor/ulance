@@ -6,6 +6,10 @@ var anyAuthenticationPromise = function (sessionService) {
     return sessionService.anyAuthenticationPromise();
 };
 
+var administradorPromise = function (sessionService) {
+    return sessionService.administradorPromise();
+};
+
 ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) {
     //--------- SISTEMA -------------
     $routeProvider.when('/', {
@@ -30,7 +34,7 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
     .when('/registros', {
         templateUrl: 'js/system/shared/app/movimiento/plist.html',
         controller: 'RegistrosController',
-        resolve: {auth: anyAuthenticationPromise}
+        resolve: {auth: administradorPromise}
     })
     .when('/profile', {
         templateUrl: 'js/system/shared/profile.html',
@@ -50,7 +54,7 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
     .when('/banco/add', {
         templateUrl: 'js/app/banco/1/new.html',
         controller: 'BancoNew1Controller',
-        resolve: {auth: anyAuthenticationPromise}
+        resolve: {auth: administradorPromise}
     })
     .when('/cuentasbanco/:id', {
         templateUrl: 'js/system/shared/app/cuentabancaria/plist.html',
@@ -61,12 +65,12 @@ ulance.config(['$routeProvider', '$locationProvider', function ($routeProvider) 
     .when('/usuario/add', {
         templateUrl: 'js/app/usuario/1/new.html',
         controller: 'UsuarioNew1Controller',
-        resolve: {auth: anyAuthenticationPromise}
+        resolve: {auth: administradorPromise}
     })
     .when('/usuarios', {
         templateUrl: 'js/app/usuario/1/plist.html',
         controller: 'Usuarios1Controller',
-        resolve: {auth: anyAuthenticationPromise}
+        resolve: {auth: administradorPromise}
     })
     .when('/usuario/:id', {
         templateUrl: 'js/app/usuario/1/view.html',
