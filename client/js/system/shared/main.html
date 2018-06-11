@@ -13,7 +13,7 @@
                     <li class="nav-item w-100">
                         <a class="nav-link active" ng-href="/ulance/client/main">
                             <span class="display-1-inblock">
-                                Home
+                                Inicio
                             </span>
                         </a>
                     </li>
@@ -21,7 +21,7 @@
                     <li class="nav-item w-100">
                         <a class="nav-link" ng-href="/ulance/client/profile">
                             <span class="display-2-inblock">
-                                Profile
+                                Perfil
                             </span>
                         </a>
                     </li>
@@ -37,7 +37,7 @@
                     <li class="nav-item w-100">
                         <a class="nav-link" ng-href="/ulance/client/banco">
                             <span class="display-4-inblock">
-                                Banco
+                                Bancos
                             </span>
                         </a>
                     </li>
@@ -47,11 +47,11 @@
     </div>
     <div class="main">
         <div id="grid-main">
-            <a id="secciones" ng-click="registros()">
+            <a ng-if="tipoUsuario == 1" id="secciones" ng-click="registros()">
                 <p>Registros globales</p>
                 <img src="img/registros.svg" style="width: 50px; height: 50px; float: right;">
             </a>
-            <a id="secciones" ng-click="usuarios()">
+            <a ng-if="tipoUsuario == 1" id="secciones" ng-click="usuarios()">
                 <p>Usuarios</p>
                 <img src="img/usuarios.svg" style="width: 50px; height: 50px; float: right;">
             </a>
