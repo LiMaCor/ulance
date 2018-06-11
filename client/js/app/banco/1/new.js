@@ -19,6 +19,15 @@ moduloBanco.controller('BancoNew1Controller',
                     }
                 });
             };
+            $scope.logout = function () {
+                sessionServerCallService.logout().then(function (response) {
+                    if (response.data.status == 200) {
+                        $location.path("/login");
+                    } else {
+                        return false;
+                    }
+                })
+            };
             $scope.add = function () {
                 console.log($scope.datosFormulario);
                 serverCallService.set($scope.ob, $scope.datosFormulario).then(function (response) {
