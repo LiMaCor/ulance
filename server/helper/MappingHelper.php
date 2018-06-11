@@ -7,6 +7,10 @@
  */
 class MappingHelper {
 
+    /**
+     * Método methodToExecute: Mapea los casos que solicita la parte cliente
+     */
+
     public function methodToExecute($ob, $op, $json) {
         $aResult = NULL;
         switch ($ob) {

@@ -14,6 +14,10 @@ class ConnectionHelper {
     private $mysqli;
     
     // MÉTODOS
+
+    /**
+     * Método checkDBConnection: Comprueba una conexión con una base de datos
+     */
     
     public function checkDBConnection() {
         $connection = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
@@ -25,6 +29,11 @@ class ConnectionHelper {
         }
     }
     
+    /**
+     * Método getConnection: Obtiene una conexión con una base de datos
+     *
+     * @return mysqli Object
+     */
     public function getConnection() {
         return $this->mysqli;
     }

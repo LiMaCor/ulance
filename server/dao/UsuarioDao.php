@@ -17,6 +17,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
 
     // MÉTODOS
 
+    /**
+     * Método get: Devuelve un registro de usuario en función del id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function get($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -57,6 +63,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método set: Crea u/o modifica un usuario en función de un id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function set($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -106,6 +118,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método remove: Elimina un usuario en función de un id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function remove($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -134,6 +152,11 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método getCount: Obtiene el número total de registros en la tabla usuario
+     *
+     * @return array
+     */
     public function getCount() {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -157,6 +180,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método getPage: Devuelve registros en función de unos limites
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function getPage($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -201,6 +230,12 @@ class UsuarioDao implements DaoTableInterface, DaoViewInterface {
         return $aResponse;
     }
 
+    /**
+     * Método getFromLoginAndPass: Valida el usuario y contraseña contra la base de datos
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function getFromLoginAndPass($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {

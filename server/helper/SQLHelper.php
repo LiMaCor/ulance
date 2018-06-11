@@ -10,6 +10,14 @@ class SQLHelper {
     
     // MÉTODOS
     
+    /**
+     * Método buildSqlLimit: Crea un filtro con límites
+     *
+     * @param [int] $total
+     * @param [int] $np
+     * @param [int] $rpp
+     * @return string
+     */
     public function buildSqlLimit($total, $np, $rpp) {
         $sqlLimit = "";
         if ($rpp > 0 && $rpp < 10000) {

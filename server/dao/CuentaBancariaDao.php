@@ -16,6 +16,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
 
     // MÉTODOS
 
+    /**
+     * Método get: Devuelve un registro de cuentabancaria en función del id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function get($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -56,6 +62,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método set: Crea u/o modifica una cuentabancaria en función de un id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function set($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -98,6 +110,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método remove: Elimina una cuentabancaria en función de un id
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function remove($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -126,6 +144,11 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método getCount: Obtiene el número total de registros en la tabla cuentabancaria
+     *
+     * @return array
+     */
     public function getCount() {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -149,6 +172,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
         return $aResult;
     }
 
+    /**
+     * Método getPage: Devuelve registros en función de unos limites
+     *
+     * @param [type] $array
+     * @return array
+     */
     public function getPage($array) {
         $connection = new ConnectionHelper();
         if ($connection->checkDBConnection()) {
@@ -194,6 +223,12 @@ class CuentaBancariaDao implements DaoTableInterface, DaoViewInterface {
         return $aResponse;
     }
 
+    /**
+     * Método thisSqlFilter: Aplica una subconsulta a modo de filtro
+     *
+     * @param [type] $filter
+     * @return array
+     */
     public function thisSqlFilter($filter) {
         $sqlFilter = "";
         if ($filter != NULL) {
